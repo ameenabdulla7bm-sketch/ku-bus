@@ -9,6 +9,20 @@ final class UrlPolicy {
     static final String LIVE = "https://ameenabdulla7bm-sketch.github.io/ku-bus/";
     static final String LOCAL = "https://appassets.androidplatform.net/site/";
 
+    static String freshPageUrl(String currentUrl, long requestId) {
+        String section = "home";
+        URI current = parse(currentUrl);
+        if (current != null && (isLive(currentUrl) || assetPath(currentUrl) != null)) {
+            String fragment = current.getFragment();
+            if ("home".equals(fragment) || "schedule".equals(fragment)
+                    || "announcements".equals(fragment) || "download".equals(fragment)) {
+                section = fragment;
+            }
+        }
+        // A new URL also bypasses exact entries in legacy service-worker caches.
+        return LIVE + "index.html?app=android&build=2&refresh=" + requestId + "#" + section;
+    }
+
     private static URI parse(String url) {
         try { return new URI(url); }
         catch (URISyntaxException | NullPointerException e) { return null; }

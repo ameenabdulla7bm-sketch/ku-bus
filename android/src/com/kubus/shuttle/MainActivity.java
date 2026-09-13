@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
@@ -39,6 +40,7 @@ public final class MainActivity extends Activity {
     private boolean offline;
     private boolean loadingLive;
     private boolean clearHistoryAfterLoad;
+    private long backgroundAt;
     private final Runnable connectionTimeout = () -> showOffline();
 
     @Override public void onCreate(Bundle state) {
@@ -60,7 +62,7 @@ public final class MainActivity extends Activity {
         offlineBar.setPadding(dp(12), 0, dp(8), 0);
         offlineBar.setBackgroundColor(Color.rgb(61, 40, 49));
         TextView offlineText = new TextView(this);
-        offlineText.setText("Offline copy · 13 Sep 2026");
+        offlineText.setText("Offline · Fall 2026 update 5");
         offlineText.setTextColor(Color.WHITE);
         offlineText.setTextSize(12);
         offlineBar.addView(offlineText, new LinearLayout.LayoutParams(0, -2, 1));
@@ -89,7 +91,7 @@ public final class MainActivity extends Activity {
         settings.setSafeBrowsingEnabled(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(false);
         settings.setSupportMultipleWindows(false);
-        settings.setUserAgentString(settings.getUserAgentString() + " KUBusAndroid/1.0");
+        settings.setUserAgentString(settings.getUserAgentString() + " KUBusAndroid/1.1");
         CookieManager.getInstance().setAcceptThirdPartyCookies(web, false);
         web.setWebChromeClient(new WebChromeClient() {
             @Override public void onProgressChanged(WebView view, int value) {
@@ -103,24 +105,24 @@ public final class MainActivity extends Activity {
             getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
                 android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::navigateBack);
         }
-        if (state != null && web.restoreState(state) != null) {
-            offline = state.getBoolean("offline", false);
-            offlineBar.setVisibility(offline ? View.VISIBLE : View.GONE);
-        } else {
-            loadLive();
-        }
+        if (state != null) web.restoreState(state);
+        loadLive();
     }
 
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
 
     private void loadLive() {
+        String freshUrl = UrlPolicy.freshPageUrl(web.getUrl(), System.currentTimeMillis());
         handler.removeCallbacks(connectionTimeout);
         web.stopLoading();
         offline = false;
         loadingLive = true;
         clearHistoryAfterLoad = true;
         offlineBar.setVisibility(View.GONE);
-        web.loadUrl(UrlPolicy.LIVE + "index.html#home");
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Cache-Control", "no-cache");
+        headers.put("Pragma", "no-cache");
+        web.loadUrl(freshUrl, headers);
         handler.postDelayed(connectionTimeout, 12000);
     }
 
@@ -132,7 +134,8 @@ public final class MainActivity extends Activity {
         clearHistoryAfterLoad = true;
         web.stopLoading();
         offlineBar.setVisibility(View.VISIBLE);
-        web.loadUrl(UrlPolicy.LOCAL + "index.html#home");
+        String section = Uri.parse(UrlPolicy.freshPageUrl(web.getUrl(), 0)).getFragment();
+        web.loadUrl(UrlPolicy.LOCAL + "index.html#" + section);
     }
 
     private void openExternal(String url) {
@@ -156,8 +159,19 @@ public final class MainActivity extends Activity {
         state.putBoolean("offline", offline);
         super.onSaveInstanceState(state);
     }
-    @Override protected void onPause() { web.onPause(); super.onPause(); }
-    @Override protected void onResume() { super.onResume(); if (web != null) web.onResume(); }
+    @Override protected void onPause() {
+        backgroundAt = SystemClock.elapsedRealtime();
+        web.onPause();
+        super.onPause();
+    }
+    @Override protected void onResume() {
+        super.onResume();
+        if (web != null) {
+            web.onResume();
+            if (backgroundAt > 0 && SystemClock.elapsedRealtime() - backgroundAt >= 60000 && !loadingLive) loadLive();
+        }
+        backgroundAt = 0;
+    }
     @Override protected void onDestroy() {
         handler.removeCallbacksAndMessages(null);
         web.stopLoading();

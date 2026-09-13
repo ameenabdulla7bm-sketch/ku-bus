@@ -42,6 +42,12 @@ public class UrlPolicyTest {
         check(UrlPolicy.isDocument(UrlPolicy.LIVE + "documents/schedule.pdf?v=1"), "PDF handed off");
         check(UrlPolicy.isDocument(UrlPolicy.LIVE + "downloads/ku-bus.apk"), "APK handed off");
         check(!UrlPolicy.isDocument(UrlPolicy.LIVE + "index.html#download"), "Download tab stays in app");
+        check(UrlPolicy.freshPageUrl(null, 123).endsWith("refresh=123#home"), "fresh launch defaults home");
+        check(!UrlPolicy.freshPageUrl(null, 123).equals(UrlPolicy.freshPageUrl(null, 124)), "launches bypass exact cached URL");
+        check(UrlPolicy.freshPageUrl(UrlPolicy.LIVE + "index.html?old=1#download", 1).endsWith("#download"), "keep Download on refresh");
+        check(UrlPolicy.freshPageUrl(UrlPolicy.LOCAL + "index.html#schedule", 1).endsWith("#schedule"), "keep offline Schedule when retrying");
+        check(UrlPolicy.freshPageUrl("https://evil.test/#download", 1).endsWith("#home"), "external page cannot choose launch state");
+        check(UrlPolicy.freshPageUrl(UrlPolicy.LIVE + "#unexpected", 1).endsWith("#home"), "unknown fragment normalized");
         System.out.println("Passed " + cases + " URL policy checks.");
     }
 }

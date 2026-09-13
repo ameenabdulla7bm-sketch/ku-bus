@@ -1,10 +1,16 @@
 # KU Bus Android
 
-Version 1.0 · package `com.kubus.shuttle` · Android 8.0 (API 26) or later.
+Version 1.1 · package `com.kubus.shuttle` · Android 8.0 (API 26) or later.
 
-This small native Android app opens https://ameenabdulla7bm-sketch.github.io/ku-bus/ in a WebView. Website updates appear when the live site loads. If the site cannot load, the app opens its bundled copy and displays an Offline copy banner with the bundle date and a Retry online action. The bundled timetable does not update itself; publish a new APK when refreshing that fallback. The Home, Schedule, Announcements, and Download views come from the website.
+This small native Android app opens https://ameenabdulla7bm-sketch.github.io/ku-bus/ in a WebView. Version 1.1 requests a fresh page on launch and after at least one minute in the background. Each request uses a unique URL and revalidation headers to avoid an old cached page; the current navigation tab is preserved. The Home, Schedule, Announcements, and Download views come from the website.
+
+If the site cannot load, the app opens its bundled copy and displays an Offline copy banner identifying the fifth Fall 2026 schedule and a Retry online action. The bundled timetable does not update itself; publish a new APK when refreshing that fallback. The online and bundled pages have separate route-selection storage.
+
+Install version 1.1 over version 1.0 to receive the native refresh fix. It uses the same package and release signing key, with versionCode 2. Future website changes load from the live site; a new APK is needed only for native changes or a new bundled offline copy.
 
 The APK supports all CPU architectures: it contains Java/Dex and public website assets, with no native libraries. The only Android permission is Internet. It does not request location, contacts, storage, notification, or package-install permissions. PDF and APK links open in the user's browser. External links stay outside the app. File access, content-provider access, mixed HTTP content, and JavaScript-to-native bridges are disabled. Android's normal TLS validation and Safe Browsing remain enabled.
+
+The 1.1 offline bundle includes the fifth Fall 2026 schedule and its original PDF. It replaces the fourth-update fallback from 1.0.
 
 ## Build
 
@@ -20,7 +26,7 @@ python3 build.py \
   --output /absolute/path/to/ku-bus/downloads/ku-bus.apk
 ```
 
-The first build creates a release signing key and random password in the private directory. **Back up both files securely. Never upload that directory to GitHub or the website.** Future APK updates must use the same key. Increase `android:versionCode` and `android:versionName` in `AndroidManifest.xml` for each release and update the offline bundle date in `MainActivity.java`.
+The first build creates a release signing key and random password in the private directory. **Back up both files securely. Never upload that directory to GitHub or the website.** Future APK updates must use the same key. Increase `android:versionCode` and `android:versionName` in `AndroidManifest.xml` for each release, and update the user agent/offline label in `MainActivity.java` and build parameter in `UrlPolicy.java`.
 
 The original signing files for this release are stored on the project owner's Mac at:
 `/Users/ameenabdulla/Documents/Codex/2026-09-12/hey/.private/ku-bus-android/`
@@ -29,6 +35,6 @@ The public site includes only the signed APK and its SHA-256 checksum. The APK d
 
 ## Verification
 
-`build.py` compiles against API 36, aligns the APK, and verifies its release signature. `test_url_policy.py` covers trusted-host boundaries, path traversal, document routing, and insecure URLs. Test installation, Home/route selection, Schedule, Announcements, Download, offline startup, Retry online, system Back, and rotation on a physical Android device before announcing broad availability. A successful build/signature check is not a device installation test.
+`build.py` compiles against API 36, aligns the APK, and verifies its release signature. `test_url_policy.py` has 38 checks covering trusted-host boundaries, path traversal, document routing, insecure URLs, and fresh launch URLs with tab preservation. Test installation over 1.0, background/resume refresh, Home/route selection, Schedule, Announcements, Download, offline startup, Retry online, system Back, and rotation on a physical Android device before announcing broad availability. A successful build/signature check is not a device installation test.
 
 References: [Android WebView](https://developer.android.com/develop/ui/views/layout/webapps/webview), [local web content](https://developer.android.com/develop/ui/views/layout/webapps/load-local-content), [APK signing](https://developer.android.com/tools/apksigner), [system bar insets](https://developer.android.com/develop/ui/views/layout/edge-to-edge).

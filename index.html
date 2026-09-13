@@ -11,16 +11,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="KU Bus">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="manifest.webmanifest?v=20260913-cache-fix-1">
+    <link rel="manifest" href="manifest.webmanifest?v=20260913-fifth-1">
     <link rel="icon" type="image/png" sizes="1254x1254" href="assets/ku-bus-logo.png">
     <link rel="apple-touch-icon" href="assets/ku-bus-logo.png">
     <link rel="preload" href="assets/fonts/etihad-altis-book.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="assets/fonts/etihad-altis-bold.woff" as="font" type="font/woff" crossorigin>
-    <link rel="stylesheet" href="fonts.css?v=20260913-cache-fix-1">
-    <link rel="stylesheet" href="mobile.css?v=20260913-cache-fix-1">
-    <link rel="stylesheet" href="airline.css?v=20260913-cache-fix-1">
-    <script defer src="script.js?v=20260913-cache-fix-1"></script>
-    <script defer src="navigation.js?v=20260913-cache-fix-1"></script>
+    <link rel="stylesheet" href="fonts.css?v=20260913-fifth-1">
+    <link rel="stylesheet" href="mobile.css?v=20260913-fifth-1">
+    <link rel="stylesheet" href="airline.css?v=20260913-fifth-1">
+    <script defer src="script.js?v=20260913-fifth-1"></script>
+    <script defer src="navigation.js?v=20260913-fifth-1"></script>
   </head>
   <body data-route="san" data-pickup="main" data-view="home">
     <svg class="logo-definitions" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
@@ -138,7 +138,7 @@
           </div>
           <section class="schedule-panel" id="trip-panel" aria-labelledby="schedule-title">
             <div class="schedule-intro">
-              <div><p id="mobile-route-summary" class="mobile-route-summary"></p><h2 id="schedule-title">Fall 2026 · Fourth update</h2></div>
+              <div><p id="mobile-route-summary" class="mobile-route-summary"></p><h2 id="schedule-title">Fall 2026 · Fifth update</h2></div>
               <span id="service-window" class="service-window">Mon–Thu + Friday</span>
             </div>
             <div class="mobile-service-switch" aria-label="Timetable days" role="group">
@@ -147,23 +147,30 @@
             </div>
             <div class="schedule-list" id="schedule-list"></div>
           </section>
-          <p class="view-footnote">Effective 7 September 2026. All times are local to the UAE. Choose KURH or Lulu separately to see departures for that residence.</p>
-          <a class="source-link" href="documents/fall-2026-shuttle-schedule-fourth-update.pdf" target="_blank" rel="noopener">Open the full schedule PDF <span aria-hidden="true">↗</span></a>
+          <p class="view-footnote">Fall 2026 · Fifth update. All times are local to the UAE. Choose KURH or Lulu separately to see departures for that residence.</p>
+          <a class="source-link" href="documents/fall-2026-shuttle-schedule-fifth-update.pdf" target="_blank" rel="noopener">Open the full schedule PDF <span aria-hidden="true">↗</span></a>
         </section>
 
         <section id="announcements" class="detail-view" data-view-panel="announcements" aria-labelledby="announcements-heading" hidden>
           <div class="view-heading"><div><p class="eyebrow">Stay in the loop</p><h1 id="announcements-heading" data-view-heading tabindex="-1">Announcements</h1></div></div>
           <article class="announcement-card" aria-labelledby="shuttle-update-title">
             <header class="announcement-header">
-              <span class="notice-badge">Schedule update · No. 4</span>
+              <span class="notice-badge">Schedule update · No. 5</span>
               <h2 id="shuttle-update-title">Fall 2026 daily shuttle schedule</h2>
-              <p class="notice-date">Effective <time datetime="2026-09-07">Monday, 7 September 2026</time></p>
-              <p class="notice-intro">The updated Fall 2026 daily shuttle schedule is now available. The timetable and next-bus countdown use this fourth update.</p>
+              <p class="notice-date">Added <time datetime="2026-09-13">13 September 2026</time></p>
+              <p class="notice-intro">The fifth Fall 2026 shuttle schedule is now available. The timetable and next-bus countdown use this latest update.</p>
               <div class="notice-actions">
                 <a class="primary-link" href="#schedule" data-view-link="schedule">View timetable <span aria-hidden="true">→</span></a>
-                <a class="source-link" href="documents/fall-2026-shuttle-schedule-fourth-update.pdf" target="_blank" rel="noopener">Open schedule PDF <span aria-hidden="true">↗</span></a>
+                <a class="source-link" href="documents/fall-2026-shuttle-schedule-fifth-update.pdf" target="_blank" rel="noopener">Open schedule PDF <span aria-hidden="true">↗</span></a>
               </div>
             </header>
+            <section class="notice-section" aria-labelledby="schedule-changes-title">
+              <h3 id="schedule-changes-title">What changed</h3>
+              <dl class="pickup-points">
+                <div><dt>Main → SAN</dt><dd>4:25 PM and 5:45 PM now run every Monday through Thursday.</dd></div>
+                <div><dt>SAN → Masdar</dt><dd>A 4:20 PM departure has been added, Monday through Thursday.</dd></div>
+              </dl>
+            </section>
             <section class="notice-section" aria-labelledby="pickup-points-title">
               <h3 id="pickup-points-title">Pickup &amp; drop-off points</h3>
               <dl class="pickup-points">
@@ -182,8 +189,9 @@
               <p class="academic-note">Only requests related to academic classes will be reviewed and considered.</p>
             </section>
             <details class="notice-original">
-              <summary>View the original announcement</summary>
-              <img src="assets/announcements/fall-2026-shuttle-update.png" alt="Original Khalifa University Fall 2026 shuttle notice, transcribed above." width="1240" height="1748" loading="lazy" decoding="async">
+              <summary>View the earlier pickup-point notice</summary>
+              <p>The earlier notice lists pickup points and transport-request guidance. Use the fifth-update PDF above for current departure times.</p>
+              <img src="assets/announcements/fall-2026-shuttle-update.png" alt="Earlier Khalifa University Fall 2026 notice with pickup points and transport-request guidance." width="1240" height="1748" loading="lazy" decoding="async">
             </details>
           </article>
         </section>
@@ -192,10 +200,10 @@
           <div class="download-layout">
             <article class="download-card" aria-labelledby="android-app-title">
               <div class="download-app-icon" aria-hidden="true"><svg class="ku-bus-mark" viewBox="0 0 1000 940" focusable="false"><use href="#ku-shuttle-mark" width="1000" height="940"/></svg></div>
-              <p class="download-platform">Android app · Version 1.0</p>
+              <p class="download-platform">Android app · Version 1.1</p>
               <h2 id="android-app-title">Your next ride.<br>One tap away.</h2>
-              <p class="download-description">Open KU Bus from your home screen for campus routes, departure countdowns and announcements.</p>
-              <a class="apk-download-link" href="downloads/ku-bus.apk" download="ku-bus.apk" type="application/vnd.android.package-archive">
+              <p class="download-description">The fifth Fall 2026 schedule, departure countdowns and announcements, with an updated offline timetable.</p>
+              <a class="apk-download-link" href="downloads/ku-bus.apk?v=1.1" download="ku-bus.apk" type="application/vnd.android.package-archive">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg>
                 Download APK
               </a>
@@ -205,7 +213,7 @@
                 <ol class="install-steps">
                   <li><strong>Download the APK</strong><p>Tap Download APK on your Android phone.</p></li>
                   <li><strong>Open the file</strong><p>Open <span class="apk-filename">ku-bus.apk</span> from your browser downloads.</p></li>
-                  <li><strong>Install KU Bus</strong><p>If Android prompts you, allow your browser to install this app, then tap Install.</p></li>
+                  <li><strong>Install or update KU Bus</strong><p>If Android prompts you, allow your browser to install this app, then tap Install or Update. You can update the existing app without uninstalling it.</p></li>
                 </ol>
               </details>
             </article>

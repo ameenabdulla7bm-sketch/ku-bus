@@ -15,6 +15,7 @@ const rows = (times, name, detail, tag = "Mon-Thu") => times.map((time) => row(t
 const group = (title, scheduleRows) => ({ title, rows: scheduleRows });
 const key = (pickup, destination) => `${pickup}->${destination}`;
 const uaeOffsetMs = 4 * 60 * 60 * 1000;
+// Original Fall service start. The fifth revision does not specify a new start date.
 const scheduleEffectiveUaeMs = Date.UTC(2026, 8, 7);
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const scheduleDays = {
@@ -185,9 +186,9 @@ const mainToSanRows = [
   row("2:45 PM", mainToSanRouteName, "Direct service"),
   row("2:55 PM", mainToSanRouteName, "Direct service"),
   row("3:30 PM", mainToSanRouteName, "Direct service"),
-  row("4:25 PM", mainToSanRouteName, "Direct service", "Mon/Wed"),
+  row("4:25 PM", mainToSanRouteName, "Direct service"),
   row("5:00 PM", mainToSanRouteName, "Direct service"),
-  row("5:45 PM", mainToSanRouteName, "Direct service", "Wednesday"),
+  row("5:45 PM", mainToSanRouteName, "Direct service"),
   row("5:55 PM", mainToSanRouteName, "Direct service", "Tue/Thu"),
   row("6:30 PM", mainToSanRouteName, "Direct service"),
   row("7:15 PM", mainToSanRouteName, "Direct service"),
@@ -246,7 +247,7 @@ const masdarToSanRows = rows(
 );
 
 const sanToMasdarRows = [
-  ...rows(["11:00 AM", "12:25 PM", "1:30 PM", "3:00 PM", "4:40 PM", "6:10 PM", "6:40 PM", "7:35 PM", "8:20 PM", "9:00 PM"], "SAN Campus -> Masdar Residence", "Masdar Residences / SAN Campus")
+  ...rows(["11:00 AM", "12:25 PM", "1:30 PM", "3:00 PM", "4:20 PM", "4:40 PM", "6:10 PM", "6:40 PM", "7:35 PM", "8:20 PM", "9:00 PM"], "SAN Campus -> Masdar Residence", "Masdar Residences / SAN Campus")
 ];
 
 const fridayToMainTimes = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "1:15 PM", "2:00 PM"];

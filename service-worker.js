@@ -1,18 +1,18 @@
-const CACHE_NAME = "ku-shuttle-pwa-v2-20260913-cache-fix-1";
+const CACHE_NAME = "ku-shuttle-pwa-v2-20260913-fifth-1";
 const APP_SHELL = new URL("./index.html", self.registration.scope).href;
 const NETWORK_TIMEOUT_MS = 4000;
 
 const PRECACHE_ASSETS = [
   "./",
   "./index.html",
-  "./fonts.css?v=20260913-cache-fix-1",
+  "./fonts.css?v=20260913-fifth-1",
   "./assets/fonts/etihad-altis-book.woff",
   "./assets/fonts/etihad-altis-bold.woff",
-  "./mobile.css?v=20260913-cache-fix-1",
-  "./airline.css?v=20260913-cache-fix-1",
-  "./script.js?v=20260913-cache-fix-1",
-  "./navigation.js?v=20260913-cache-fix-1",
-  "./manifest.webmanifest?v=20260913-cache-fix-1",
+  "./mobile.css?v=20260913-fifth-1",
+  "./airline.css?v=20260913-fifth-1",
+  "./script.js?v=20260913-fifth-1",
+  "./navigation.js?v=20260913-fifth-1",
+  "./manifest.webmanifest?v=20260913-fifth-1",
   "./assets/ku-bus-logo.png",
   "./assets/ku-bus-wordmark.png",
   "./assets/app-icon-180.png",
@@ -20,7 +20,7 @@ const PRECACHE_ASSETS = [
   "./assets/app-icon-512.png",
   "./assets/app-icon-maskable-512.png",
   "./assets/khalifa-university-symbol.png",
-  "./documents/fall-2026-shuttle-schedule-fourth-update.pdf",
+  "./documents/fall-2026-shuttle-schedule-fifth-update.pdf",
   "./assets/announcements/fall-2026-shuttle-update.png",
   "./assets/campus-main-background.png",
   "./assets/campus-san-background.png",
