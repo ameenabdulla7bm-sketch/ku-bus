@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" fill="none">
+  <defs>
+    <mask id="openings" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="230" style="mask-type:luminance">
+      <rect width="600" height="230" fill="white"/>
+      <g fill="black"><rect x="88" y="117" width="10" height="13" rx="0"/><rect x="111" y="117" width="10" height="13" rx="0"/><rect x="134" y="117" width="10" height="13" rx="0"/><rect x="157" y="117" width="10" height="13" rx="0"/><rect x="180" y="117" width="10" height="13" rx="0"/><rect x="88" y="143" width="10" height="13" rx="0"/><rect x="111" y="143" width="10" height="13" rx="0"/><rect x="134" y="143" width="10" height="13" rx="0"/><rect x="157" y="143" width="10" height="13" rx="0"/><rect x="180" y="143" width="10" height="13" rx="0"/><rect x="88" y="169" width="10" height="13" rx="0"/><rect x="111" y="169" width="10" height="13" rx="0"/><rect x="134" y="169" width="10" height="13" rx="0"/><rect x="157" y="169" width="10" height="13" rx="0"/><rect x="180" y="169" width="10" height="13" rx="0"/><rect x="402" y="122" width="10" height="13" rx="0"/><rect x="425" y="122" width="10" height="13" rx="0"/><rect x="448" y="122" width="10" height="13" rx="0"/><rect x="471" y="122" width="10" height="13" rx="0"/><rect x="494" y="122" width="10" height="13" rx="0"/><rect x="402" y="147" width="10" height="13" rx="0"/><rect x="425" y="147" width="10" height="13" rx="0"/><rect x="448" y="147" width="10" height="13" rx="0"/><rect x="471" y="147" width="10" height="13" rx="0"/><rect x="494" y="147" width="10" height="13" rx="0"/><rect x="402" y="172" width="10" height="13" rx="0"/><rect x="425" y="172" width="10" height="13" rx="0"/><rect x="448" y="172" width="10" height="13" rx="0"/><rect x="471" y="172" width="10" height="13" rx="0"/><rect x="494" y="172" width="10" height="13" rx="0"/><rect x="248" y="87" width="10" height="12" rx="0"/><rect x="270" y="87" width="10" height="12" rx="0"/><rect x="314" y="87" width="10" height="12" rx="0"/><rect x="336" y="87" width="10" height="12" rx="0"/><rect x="248" y="111" width="10" height="12" rx="0"/><rect x="270" y="111" width="10" height="12" rx="0"/><rect x="314" y="111" width="10" height="12" rx="0"/><rect x="336" y="111" width="10" height="12" rx="0"/><path d="M268 213V178C268 160 280 148 296 148C313 148 325 160 325 178V213Z"/></g>
+    </mask>
+  </defs>
+  <g fill="#000" mask="url(#openings)">
+    <path d="M53 213V109H73V99H214V213ZM223 213V69H248V54H343V69H369V213ZM382 213V103H525V114H548V213Z"/>
+    <path d="M252 54V39H339V54ZM262 39V29H329V39ZM212 139H385V157H212Z"/>
+    <path d="M39 213V178H44V213ZM42 179C27 174 21 162 24 156C33 157 40 164 42 173C42 161 46 151 53 146C58 154 53 168 44 178C54 169 62 168 67 171C64 179 55 183 44 182Z"/>
+    <path d="M559 213V178H564V213ZM562 179C547 174 541 162 544 156C553 157 560 164 562 173C562 161 566 151 573 146C578 154 573 168 564 178C574 169 582 168 587 171C584 179 575 183 564 182Z"/>
+    <path d="M20 213H580V218H20Z"/>
+  </g>
+</svg>

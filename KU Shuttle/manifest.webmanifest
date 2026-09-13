@@ -1,0 +1,36 @@
+{
+  "name": "Khalifa University Daily Shuttle Bus Service",
+  "short_name": "KU Shuttle",
+  "description": "Khalifa University daily shuttle timetable with route filtering, UAE time, next departure, and live route status.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#241018",
+  "theme_color": "#241018",
+  "categories": [
+    "education",
+    "travel",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "assets/ku-bus-logo.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open Routes",
+      "short_name": "Routes",
+      "url": "./index.html#home"
+    },
+    {
+      "name": "View Timetable",
+      "short_name": "Timetable",
+      "url": "./index.html#schedule"
+    }
+  ]
+}

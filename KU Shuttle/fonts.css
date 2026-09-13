@@ -1,0 +1,15 @@
+/* Etihad Altis webfonts. Source and copyright: assets/fonts/Etihad-Altis-notice.txt. */
+@font-face {
+  font-family: "Etihad Altis";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/etihad-altis-book.woff") format("woff");
+}
+@font-face {
+  font-family: "Etihad Altis";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/etihad-altis-bold.woff") format("woff");
+}

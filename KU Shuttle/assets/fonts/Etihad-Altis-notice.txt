@@ -1,0 +1,14 @@
+Etihad Altis — Book and Bold
+
+Copyright (c) 2013 by Etihad Airways. All rights reserved.
+Designer: Typolar / Jarno Lukkarila.
+Family information:
+https://www.typolar.com/custom/fonts/index.php?font=etihad-altis-font-family&tab=fonts
+
+Unmodified WOFF files used by Etihad's official careers website:
+Book: https://static.vscdn.net/images/careers/demo/etihad-sandbox/1674652654::EtihadAltis-Book_V3.png
+Bold: https://static.vscdn.net/images/careers/demo/etihad-sandbox/1674652531::EtihadAltis-Bold_V3.png
+
+The upstream URLs end in .png, but their file signatures identify WOFF, not PNG or WOFF2.
+Only the local filename extensions were changed. Embedded font data and notices are unchanged.
+The Book face is mapped to CSS weight 400 and Bold to 700.

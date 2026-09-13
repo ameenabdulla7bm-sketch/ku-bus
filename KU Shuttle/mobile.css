@@ -1,0 +1,391 @@
+/* Responsive KU Shuttle boarding pass. */
+@property --campus-tint {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f4dade;
+}
+:root {
+  --font-interface: "Barlow Semi Condensed", "Arial Narrow", "Segoe UI", sans-serif;
+  --font-time: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --ink: #131747;
+  --muted: #626873;
+  --glass: rgba(255, 255, 255, .72);
+  --border: rgba(255, 255, 255, .86);
+}
+body, body[data-route="san"] { --arrival-ink: #244b91; --arrival-soft: #e6edf9; --arrival-line: #bdcce5; }
+body[data-route="main"] { --arrival-ink: #b32636; --arrival-soft: #fce8ea; --arrival-line: #e8afb7; }
+body[data-route="masdar"] { --arrival-ink: #376548; --arrival-soft: #e5efe7; --arrival-line: #bfd5c5; }
+body[data-route="rawda"] { --arrival-ink: #796008; --arrival-soft: #fff4bf; --arrival-line: #e8d36e; }
+body[data-route="kurh"] { --arrival-ink: #b52f78; --arrival-soft: #fce8f3; --arrival-line: #e6accd; }
+body[data-route="lulu"] { --arrival-ink: #7241a3; --arrival-soft: #efe5f9; --arrival-line: #cdb3e4; }
+body[data-pickup="main"] { --campus-tint: #f4dade; }
+body[data-pickup="san"] { --campus-tint: #e3ebf8; }
+body[data-pickup="masdar"] { --campus-tint: #e4eee5; }
+body[data-pickup="rawda"] { --campus-tint: #f9efc1; }
+body[data-pickup="kurh"] { --campus-tint: #f5deeb; }
+body[data-pickup="lulu"] { --campus-tint: #eadef5; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-width: 0; color: var(--ink); background: #d5d9de; font-family: var(--font-interface); font-weight: 400; transition: --campus-tint 600ms ease; }
+button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+button { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button, a, h1 { outline-offset: 4px; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--arrival-ink); }
+h1:focus { outline: none; }
+h1, h2, h3, p { margin: 0; }
+svg { display: block; }
+[data-view-panel][hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  padding-bottom: calc(112px + env(safe-area-inset-bottom));
+  overflow: clip;
+  background: linear-gradient(110deg, #ffffff75, #ffffff00 44%), radial-gradient(ellipse at 85% 35%, var(--campus-tint), transparent 85%), #eceef1;
+}
+.app-shell::before, .app-shell::after { content: ""; position: absolute; z-index: -1; pointer-events: none; }
+.app-shell::before { inset: 0 0 0 60%; background: linear-gradient(95deg, #ffffff45, #ffffff00 55%); border-left: 1px solid #ffffff30; }
+.app-shell::after { width: 650px; height: 520px; right: -510px; top: 360px; border-radius: 50%; border: 1px solid #ffffff80; box-shadow: inset 24px 15px 40px #ffffff80; transform: rotate(-25deg); }
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 84px; padding: max(21px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) 14px max(24px, env(safe-area-inset-left)); }
+.time-pill { display: flex; align-items: center; gap: 8px; flex-shrink: 0; padding: 6px 11px; border: 1px solid #ffffffaa; border-radius: 24px; background: #ffffff65; box-shadow: inset 0 1px 0 #ffffffb3; }
+.clock-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--arrival-ink); box-shadow: 0 0 0 4px #ffffff70; }
+.time-label { display: block; color: var(--muted); font-size: 10px; line-height: 1.2; }
+#uae-day { display: none; }
+#uae-time { display: block; margin-top: 2px; color: var(--ink); font-family: var(--font-time); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.3; }
+.brand { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+.brand .ku-bus-mark { display: block; width: 44px; height: 44px; object-fit: contain; }
+.home-layout { max-width: 650px; margin: 0 auto; }
+.ride-hero { position: relative; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.departure-overview { flex-shrink: 0; margin: 0 20px; }
+.hero-visual { position: relative; }
+.hero-bus { position: relative; width: calc(100% + 18px); aspect-ratio: 2.9; margin: 11px -9px 0; overflow: hidden; pointer-events: none; filter: drop-shadow(0 10px 8px #1b284427); }
+/* Keep the front half in view, with the rear continuing beyond the right edge.
+   Size from the available height so the crop never stretches the bus. */
+.hero-bus > img { position: absolute; display: block; top: 0; left: 100%; width: auto; max-width: none; height: 100%; transform: translateX(-52%); clip-path: inset(7% 2% 8% 2%); }
+.campus-scene { position: absolute; z-index: -1; inset: 0 -5% 2% -8%; mix-blend-mode: multiply; pointer-events: none; }
+/* The supplied campus artwork keeps its pale architectural detail.
+   Multiply and a soft edge let its light background blend into the glass. */
+.campus-silhouette { position: absolute; inset: 0; opacity: 0; transition: opacity 600ms ease; background: var(--campus-image) center / contain no-repeat; filter: brightness(1.08); -webkit-mask: linear-gradient(transparent, #000 24%, #000 85%, transparent); mask: linear-gradient(transparent, #000 24%, #000 85%, transparent); }
+.campus-silhouette[data-campus="main"] { --campus-image: url("assets/campus-main-background.png"); }
+.campus-silhouette[data-campus="san"] { --campus-image: url("assets/campus-san-background.png"); }
+.campus-silhouette[data-campus="masdar"] { --campus-image: url("assets/campus-masdar-background.png"); }
+.campus-silhouette[data-campus="rawda"] { --campus-image: url("assets/campus-rawda-background.png"); }
+.campus-silhouette[data-campus="kurh"] { --campus-image: url("assets/campus-kurh-background.png"); }
+.campus-silhouette[data-campus="lulu"] { --campus-image: url("assets/campus-lulu-background.png"); }
+body[data-pickup="main"] [data-campus="main"], body[data-pickup="san"] [data-campus="san"], body[data-pickup="masdar"] [data-campus="masdar"], body[data-pickup="rawda"] [data-campus="rawda"], body[data-pickup="kurh"] [data-campus="kurh"], body[data-pickup="lulu"] [data-campus="lulu"] { opacity: .9; }
+.upcoming-section { padding: 8px 20px 0; }
+.section-heading { display: flex; align-items: center; justify-content: space-between; margin: 0 8px 8px; }
+.section-heading h2 { color: var(--muted); font-size: 18px; font-weight: 400; }
+.ride-actions { display: flex; align-items: center; gap: 4px; }
+.schedule-link { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 4px; border-radius: 6px; color: var(--arrival-ink); font-size: 14px; font-weight: 500; white-space: nowrap; }
+.schedule-link span { font-size: 20px; }
+.ride-ticket { position: relative; isolation: isolate; border-radius: 12px; filter: drop-shadow(0 12px 18px #28325012); }
+/* Two transparent cutouts meet at the perforation to form real ticket notches. */
+.mobile-location-picker {
+  border: 1px solid var(--border); border-radius: 18px; background: var(--glass);
+}
+.mobile-location-picker { position: relative; padding: 16px 14px 14px; }
+.mobile-location-field + .mobile-location-field, .mobile-location-field:last-child { margin-top: 14px; }
+.mobile-location-label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; min-height: 20px; color: var(--ink); font-size: 14px; font-weight: 700; }
+.mobile-location-label small { color: var(--muted); font-size: 12px; font-weight: 400; }
+.mobile-location-buttons { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; }
+.mobile-location-buttons button {
+  --stop-ink: #65428f; --stop-line: #d2c1e5; --stop-soft: #f3eef9;
+  position: relative;
+  min-width: 0; min-height: 48px; padding: 5px 2px;
+  border: 1px solid var(--stop-line); border-radius: 7px;
+  color: var(--stop-ink); background: linear-gradient(155deg, #ffffff18, #ffffff00 75%) var(--stop-soft);
+  box-shadow: 0 2px 3px #1c284607, inset 0 1px 0 #fff;
+  font-size: 13px; font-weight: 600; line-height: 1.2; text-transform: uppercase; white-space: pre-line; cursor: pointer;
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 180ms ease, transform 140ms ease;
+}
+.mobile-location-buttons button[data-mobile-location="main"] { --stop-ink: #b32636; --stop-line: #e8afb7; --stop-soft: #fcebed; }
+.mobile-location-buttons button[data-mobile-location="san"] { --stop-ink: #244b91; --stop-line: #bdcce5; --stop-soft: #f0f4fc; }
+.mobile-location-buttons button[data-mobile-location="masdar"] { --stop-ink: #376548; --stop-line: #bfd5c5; --stop-soft: #eff7f1; }
+.mobile-location-buttons button[data-mobile-location="rawda"] { --stop-ink: #796008; --stop-line: #e8d36e; --stop-soft: #fff7d4; --stop-selected-fill: #f3ce42; --stop-selected-text: #493900; }
+.mobile-location-buttons button[data-mobile-location="kurh"] { --stop-ink: #b52f78; --stop-line: #e6accd; --stop-soft: #fcebf5; }
+.mobile-location-buttons button[data-mobile-location="lulu"] { --stop-ink: #7241a3; --stop-line: #cdb3e4; --stop-soft: #f3ebfb; }
+.mobile-location-buttons button[aria-pressed="true"] { color: var(--stop-selected-text, #fff); border-color: var(--stop-selected-fill, var(--stop-ink)); background-color: var(--stop-selected-fill, var(--stop-ink)); box-shadow: 0 3px 7px #26304e14, inset 0 1px 0 #ffffff30; }
+.mobile-location-buttons button[aria-pressed="true"]::after { content: "✓"; position: absolute; right: -3px; top: -5px; display: grid; place-items: center; width: 13px; height: 13px; border: 2px solid #fbfcfd; border-radius: 50%; background: var(--stop-selected-fill, var(--stop-ink)); color: var(--stop-selected-text, #fff); font: 9px/1 sans-serif; }
+.mobile-location-buttons button:disabled { color: #7c8491; background: #edf0f280; border-color: #dce0e5; box-shadow: none; cursor: default; }
+.mobile-location-buttons button:not(:disabled):active { transform: translateY(1px); }
+.mobile-swap { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; color: var(--arrival-ink); background: transparent; cursor: pointer; }
+.mobile-swap svg { width: 22px; height: 22px; transform-origin: center; }
+.mobile-swap.is-swapping svg { animation: swap-turn 360ms ease-in-out; }
+@keyframes swap-turn { from { transform: rotate(0); } to { transform: rotate(180deg); } }
+.mobile-swap:disabled { opacity: .4; cursor: default; }
+.ticket-departure { position: relative; display: grid; grid-template-columns: minmax(108px, .9fr) minmax(0, 1.3fr); gap: 12px; align-items: center; padding: 14px 14px 16px; border: 1px solid var(--border); border-top: 0; border-radius: 0 0 18px 18px; background: linear-gradient(125deg, #ffffffee 10%, #ffffff75), var(--arrival-soft); box-shadow: inset 0 -1px 0 #fff;
+  -webkit-mask: radial-gradient(circle at 0 0, transparent 7px, #000 7.75px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 0, transparent 7px, #000 7.75px) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle at 0 0, transparent 7px, #000 7.75px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 0, transparent 7px, #000 7.75px) right / 51% 100% no-repeat;
+}
+.ticket-departure::before { content: ""; position: absolute; top: 0; left: 9px; right: 9px; border-top: 1px dashed #aeb6c68c; }
+.ticket-route-header { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.departure-overview .ticket-route-header {
+  padding: 12px 14px 10px; border: 1px solid var(--border); border-bottom: 0; border-radius: 18px 18px 0 0; background: linear-gradient(125deg, #ffffffee 10%, #ffffff75), var(--arrival-soft);
+  -webkit-mask: radial-gradient(circle at 0 100%, transparent 7px, #000 7.75px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 100%, transparent 7px, #000 7.75px) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle at 0 100%, transparent 7px, #000 7.75px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 100%, transparent 7px, #000 7.75px) right / 51% 100% no-repeat;
+}
+.ticket-route-copy { display: grid; gap: 4px; min-width: 0; }
+.ticket-kicker { color: var(--muted); font-size: 9px; font-weight: 500; line-height: 1.2; letter-spacing: 1.6px; text-transform: uppercase; }
+.ticket-route { color: var(--arrival-ink); font-size: 23px; line-height: 1.1; font-weight: 600; letter-spacing: .3px; }
+.countdown-summary { min-width: 0; }
+.departure-label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 10px; font-weight: 500; line-height: 1.1; letter-spacing: .8px; text-transform: uppercase; }
+.stat-label, .countdown-caption { color: var(--muted); font-size: 12px; line-height: 1.2; font-weight: 400; }
+.stat-label { display: block; }
+.departure-time { display: block; margin: 0 0 5px; font-family: var(--font-time); font-size: 23px; line-height: 1.1; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
+.countdown-summary small { display: block; max-width: 16ch; color: var(--muted); font-size: 11px; line-height: 1.3; }
+.countdown-summary .departure-note { display: block; max-width: none; margin-top: 4px; color: var(--arrival-ink); font-size: 11px; line-height: 1.2; font-weight: 600; }
+#next-note[hidden] { display: none; }
+.departure-note:not([hidden]) + #next-detail { display: none; }
+.countdown-display { min-width: 0; padding: 9px; border: 1px solid #ffffff30; border-radius: 12px; background: radial-gradient(ellipse at 100% 0, color-mix(in srgb, var(--arrival-ink) 65%, transparent), transparent 85%), #18233c; box-shadow: 0 5px 12px #17233b16, inset 0 1px 0 #ffffff25; }
+.countdown-caption { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 3px; color: #e3e8f2; font-size: 10px; }
+#countdown-day { color: #fff; font-size: 10px; font-weight: 500; }
+.countdown-units { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin-top: 7px; }
+.countdown-unit { display: flex; flex-direction: column; align-items: stretch; gap: 5px; min-width: 0; text-align: center; }
+.countdown-unit strong { display: block; padding: 4px 1px; border: 1px solid #ffffff20; border-radius: 5px; background: linear-gradient(#ffffff0a 49%, #03091738 50%, #ffffff05 52%); color: #fff; font-family: var(--font-time); font-size: 23px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; text-shadow: 0 1px 1px #0003; box-shadow: 0 1px 2px #0002; }
+.countdown-unit span { color: #d3dcec; font-size: 8px; line-height: 1; font-weight: 500; text-transform: uppercase; letter-spacing: .8px; }
+.ticket-footnote { margin-top: 32px; color: var(--muted); font-size: 11px; text-align: center; }
+.ticket-footnote span { margin-right: 3px; }
+.bottom-nav { --nav-index: 0; position: fixed; z-index: 30; left: 50%; bottom: max(12px, env(safe-area-inset-bottom)); width: min(440px, calc(100% - 32px - env(safe-area-inset-left) - env(safe-area-inset-right))); transform: translateX(-50%); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 5px; border: 1px solid #ffffffcf; border-radius: 999px; background: radial-gradient(ellipse at 48% 0, #b1d8ff65, transparent 60%), radial-gradient(ellipse at 65% 100%, #e5c5ef40, transparent 65%), linear-gradient(125deg, #ffffffc2, #ffffff70 65%, #ffffffa3); box-shadow: 0 12px 28px #23324b20, 0 2px 5px #23324b12, inset 0 1px 0 #fff; -webkit-backdrop-filter: blur(24px) saturate(1.5); backdrop-filter: blur(24px) saturate(1.5); }
+body[data-view="schedule"] .bottom-nav { --nav-index: 1; }
+body[data-view="announcements"] .bottom-nav { --nav-index: 2; }
+.bottom-nav::before { content: ""; position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc((100% - 10px) / 3); border: 1px solid #ffffffc7; border-radius: 999px; background: linear-gradient(135deg, #ffffff9c, #ffffff15), var(--arrival-soft); box-shadow: 0 2px 7px #2832500f, inset 0 1px 0 #fff; transform: translateX(calc(var(--nav-index) * 100%)); transition: transform 320ms cubic-bezier(.2,.8,.2,1), background-color 250ms ease; pointer-events: none; }
+.bottom-nav a { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-width: 0; min-height: 52px; padding: 4px 2px; color: #535e70; font-size: 13px; font-weight: 400; line-height: 1.15; border-radius: 999px; transition: color 180ms ease, transform 180ms ease; }
+.bottom-nav a:active { transform: scale(.97); }
+.bottom-nav a > span:last-child { max-width: 100%; overflow-wrap: anywhere; }
+.bottom-nav svg { width: 22px; height: 22px; }
+.bottom-nav a[aria-current="page"] { color: var(--arrival-ink); font-weight: 600; }
+.detail-view { max-width: 1060px; margin: 0 auto; padding: 26px 20px 16px; }
+.view-heading { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin-bottom: 28px; }
+.eyebrow { color: var(--muted); font-size: 13px; margin-bottom: 5px; }
+.view-heading h1 { color: var(--arrival-ink); font-size: 36px; line-height: 1.1; font-weight: 700; }
+.text-link { display: flex; gap: 5px; align-items: center; justify-content: flex-end; min-height: 44px; color: var(--arrival-ink); font-size: 14px; white-space: nowrap; }
+.schedule-panel { border: 1px solid var(--border); border-radius: 12px; background: var(--glass); box-shadow: 0 12px 36px #28325009; }
+.schedule-intro { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 10px; padding: 18px 16px 14px; }
+.mobile-route-summary { color: var(--ink); font-size: 18px; line-height: 1.25; font-weight: 600; }
+#schedule-title { margin-top: 6px; color: var(--muted); font-size: 12px; font-weight: 400; }
+.service-window { padding: 5px 8px; border-radius: 6px; color: var(--arrival-ink); background: var(--arrival-soft); font-size: 11px; }
+.mobile-service-switch { display: flex; gap: 3px; margin: 0 14px 14px; padding: 3px; border: 1px solid #cdd2dd60; border-radius: 9px; background: #e7eaf080; }
+.mobile-service-switch button { position: relative; flex: 1; min-height: 44px; padding: 8px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--muted); font-size: 14px; font-weight: 500; cursor: pointer; }
+.mobile-service-switch button[aria-pressed="true"] { color: var(--arrival-ink); background: #ffffffd6; border-color: #ffffffa3; box-shadow: 0 1px 4px #26304e10; }
+.mobile-service-switch button[aria-pressed="true"]::after { content: ""; position: absolute; width: 16px; height: 2px; bottom: 4px; left: calc(50% - 8px); border-radius: 2px; background: var(--arrival-ink); }
+.schedule-list { padding: 0 16px 8px; }
+.schedule-table-head, .schedule-group { display: none; }
+.schedule-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 8px; min-height: 58px; padding: 12px 0; border-top: 1px solid #bfc6d440; }
+.schedule-time { font-family: var(--font-time); color: var(--ink); font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.schedule-route { display: none; }
+.schedule-row[data-restricted="true"] .schedule-route { display: block; grid-column: 1 / -1; grid-row: 2; }
+.schedule-route strong { color: var(--muted); font-size: 13px; line-height: 1.3; font-weight: 400; }
+.schedule-note { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+.schedule-row[data-restricted="true"] .schedule-note { color: var(--arrival-ink); font-weight: 600; }
+.schedule-pill, .status-pill { display: inline-block; padding: 4px 6px; border-radius: 5px; font-size: 12px; line-height: 1.2; white-space: nowrap; }
+.schedule-pill { color: var(--arrival-ink); background: var(--arrival-soft); }
+.status-pill.is-scheduled { color: #326744; background: #eaf3ec; }
+.status-pill.is-departed { color: #667080; background: #e9edf2; }
+body[data-mobile-service="weekday"] .schedule-row[data-day-tag="Friday"], body[data-mobile-service="friday"] .schedule-row:not([data-day-tag="Friday"]) { display: none; }
+.view-footnote { margin: 18px 4px 0; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.announcement-empty { max-width: 660px; margin: 34px auto 0; padding: 42px 22px; border: 1px solid var(--border); border-radius: 16px; background: var(--glass); text-align: center; box-shadow: 0 16px 36px #28325007; }
+.announcement-icon { display: grid; place-items: center; width: 90px; height: 90px; margin: 0 auto 24px; border: 1px solid white; border-radius: 50%; background: linear-gradient(135deg, #fff, var(--arrival-soft)); color: var(--arrival-ink); }
+.announcement-icon svg { width: 46px; height: 46px; }
+.announcement-empty h2 { font-size: 25px; font-weight: 600; }
+.announcement-empty p { margin: 12px auto 26px; color: var(--muted); font-size: 16px; line-height: 1.6; }
+.announcement-card { max-width: 800px; margin: 0 auto; border: 1px solid var(--border); border-radius: 14px; background: var(--glass); box-shadow: 0 12px 32px #2832500c; }
+.announcement-header { padding: 24px; }
+.notice-badge { display: inline-block; margin-bottom: 14px; padding: 6px 9px; border-radius: 5px; color: var(--arrival-ink); background: var(--arrival-soft); font-size: 11px; line-height: 1.2; font-weight: 600; text-transform: uppercase; letter-spacing: .7px; }
+.announcement-header h2 { color: var(--ink); font-size: 28px; line-height: 1.15; font-weight: 600; }
+.notice-date { margin-top: 10px; color: var(--arrival-ink); font-size: 14px; line-height: 1.4; font-weight: 500; }
+.notice-intro { margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.5; }
+.notice-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin-top: 18px; }
+.source-link { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 8px 4px; color: var(--arrival-ink); font-size: 15px; line-height: 1.3; font-weight: 500; }
+.source-link:hover { text-decoration: underline; }
+.notice-section { padding: 22px 24px; border-top: 1px solid #bac3d13d; }
+.notice-section h3 { color: var(--ink); font-size: 20px; line-height: 1.25; font-weight: 600; }
+.pickup-points { display: grid; grid-template-columns: 1fr; gap: 18px; margin: 18px 0 0; }
+.pickup-points dt { color: var(--ink); font-size: 16px; line-height: 1.3; font-weight: 600; }
+.pickup-points dd { margin: 4px 0 0; color: var(--muted); font-size: 16px; line-height: 1.4; }
+.notice-help p { margin-top: 12px; color: var(--muted); font-size: 16px; line-height: 1.5; }
+.notice-help .academic-note { padding: 12px 14px; border-left: 3px solid var(--arrival-ink); background: var(--arrival-soft); color: var(--ink); }
+.notice-original { padding: 10px 24px 16px; border-top: 1px solid #bac3d13d; }
+.notice-original summary { min-height: 44px; padding: 12px 0; color: var(--arrival-ink); font-size: 15px; line-height: 1.3; font-weight: 500; cursor: pointer; }
+.notice-original summary:focus-visible { outline: 3px solid var(--arrival-ink); outline-offset: 3px; }
+.notice-original img { display: block; width: 100%; height: auto; margin-top: 10px; border: 1px solid #c6cddd80; border-radius: 6px; }
+.primary-link { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 46px; padding: 10px 24px; border: 1px solid var(--arrival-ink); border-radius: 8px; background: var(--arrival-ink); color: #fff; font-size: 15px; font-weight: 500; }
+.empty-state { display: grid; gap: 8px; padding: 22px 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+@media (min-width: 760px) {
+  .pickup-points { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 30px; }
+  .site-header { padding: 28px 44px 20px; }
+  .brand .ku-bus-mark { width: 48px; height: 48px; }
+  #uae-day { display: inline; }
+  .time-label { font-size: 11px; }
+  #uae-time { font-size: 13px; }
+  .time-pill { padding: 7px 14px; }
+  .detail-view { padding: 34px 40px 24px; }
+  .view-heading h1 { font-size: 44px; }
+  .schedule-intro { padding: 22px 24px 18px; }
+  .mobile-route-summary { font-size: 23px; }
+  .mobile-service-switch { width: 270px; margin: 0 24px 20px; }
+  .schedule-list { padding: 0 24px 16px; }
+  .schedule-table-head, .schedule-row { display: grid; grid-template-columns: 130px minmax(0, 1fr) 105px 110px; gap: 20px; padding: 14px 12px; }
+  .schedule-table-head { color: var(--muted); background: #ffffff90; border-radius: 7px; font-size: 13px; font-weight: 500; }
+  .schedule-time { font-size: 17px; }
+  .schedule-route, .schedule-row[data-restricted="true"] .schedule-route { display: block; grid-column: auto; grid-row: auto; }
+  .schedule-route strong { font-size: 14px; }
+}
+@media (min-width: 981px) {
+  body { padding: 24px; }
+  .app-shell { max-width: 1200px; min-height: calc(100svh - 48px); margin: 0 auto; border: 1px solid #ffffff88; border-radius: 30px; box-shadow: 0 25px 70px #222e4314; }
+  .site-header { padding: 30px 48px 12px; }
+  .home-layout { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); align-items: center; gap: 40px; max-width: 1120px; padding: 38px 36px 45px; }
+  .departure-overview { margin: 0; }
+  .departure-overview .ticket-route-header { padding: 16px 20px 14px; }
+  .hero-visual { height: clamp(150px, 24vh, 230px); }
+  .hero-bus { width: calc(100% + 48px); height: 100%; aspect-ratio: auto; margin: 0 -24px; }
+  .upcoming-section { padding: 0; }
+  .section-heading { margin-bottom: 12px; }
+  .section-heading h2 { font-size: 22px; }
+  .mobile-location-picker { padding: 22px 20px 20px; }
+  .mobile-location-label { font-size: 16px; }
+  .mobile-location-label small { font-size: 13px; }
+  .mobile-location-field:last-child { margin-top: 20px; }
+  .mobile-location-buttons { gap: 5px; }
+  .mobile-location-buttons button { min-height: 54px; font-size: 14px; }
+  .ticket-departure { padding: 20px; grid-template-columns: minmax(128px, 1fr) minmax(0, 1.2fr); gap: 14px; }
+  .departure-time { font-size: 26px; }
+  .countdown-summary small { font-size: 12px; max-width: 20ch; }
+  .countdown-unit strong { font-size: 28px; }
+  .countdown-caption, .stat-label { font-size: 13px; }
+  #countdown-day { font-size: 12px; }
+  .ticket-footnote { font-size: 12px; }
+  .bottom-nav { bottom: 40px; }
+}
+@media (max-width: 359px) {
+  .site-header { padding-left: 18px; padding-right: 18px; gap: 12px; }
+  .upcoming-section { padding-left: 14px; padding-right: 14px; }
+  .departure-overview { margin-left: 14px; margin-right: 14px; }
+  .mobile-location-picker { padding-left: 8px; padding-right: 8px; }
+  .mobile-location-buttons { gap: 2px; }
+  .mobile-location-buttons button { font-size: 12px; }
+  .ticket-departure { padding-left: 12px; padding-right: 12px; gap: 8px; }
+  .countdown-display { padding: 8px 6px; }
+  .countdown-units { gap: 3px; }
+  .countdown-unit strong { font-size: 21px; }
+  .countdown-caption, #countdown-day { font-size: 9px; }
+  .bottom-nav a { font-size: 12px; }
+  .detail-view { padding-left: 14px; padding-right: 14px; }
+  .view-heading h1 { font-size: 32px; }
+  .schedule-row { gap: 5px; }
+  .schedule-pill, .status-pill { padding: 4px; font-size: 11px; }
+}
+/* The visual spacer absorbs spare height, while the bus keeps a viewport-based
+   size. Route notes can wrap without resizing the artwork or clipping controls. */
+body[data-view="home"] .app-shell { display: flex; flex-direction: column; min-height: 100svh; min-height: 100dvh; padding-bottom: 0; }
+body[data-view="home"] main, #home { display: flex; flex: 1; min-width: 0; }
+body[data-view="home"] .site-header, body[data-view="home"] .bottom-nav { flex-shrink: 0; }
+body[data-view="home"] .bottom-nav { position: relative; left: auto; right: auto; bottom: auto; transform: none; margin: 0 auto max(12px, env(safe-area-inset-bottom)); }
+@media (max-width: 980px) {
+  body[data-view="home"] .site-header { min-height: 64px; padding-top: max(10px, env(safe-area-inset-top)); padding-bottom: 8px; }
+  .home-layout { display: flex; flex: 1; flex-direction: column; width: 100%; }
+  .ride-hero { display: flex; flex: 1; flex-direction: column; }
+  .hero-visual { --bus-art-height: clamp(64px, calc(100svh - 36.5rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)), 17rem); display: flex; flex-direction: column; justify-content: flex-end; flex: 1; min-height: var(--bus-art-height); }
+  .hero-bus { position: relative; flex: 0 0 var(--bus-art-height); width: 100%; height: var(--bus-art-height); min-height: var(--bus-art-height); aspect-ratio: auto; margin: 0; }
+  .campus-scene { top: auto; bottom: 0; height: var(--bus-art-height); }
+  .upcoming-section { flex-shrink: 0; padding-top: 0; padding-bottom: 12px; }
+  .section-heading { margin-bottom: 2px; }
+  .mobile-location-picker { padding-top: 12px; padding-bottom: 12px; }
+  .mobile-location-field:last-child { margin-top: 10px; }
+  .mobile-location-label { margin-bottom: 6px; }
+  .ticket-departure { padding-top: 12px; padding-bottom: 12px; }
+  .departure-time { margin-top: 0; margin-bottom: 4px; }
+  .countdown-unit { gap: 5px; }
+  .ticket-footnote { display: none; }
+}
+@media (max-width: 980px) and (max-height: 680px) {
+  body[data-view="home"] .site-header { min-height: 54px; padding-top: max(5px, env(safe-area-inset-top)); padding-bottom: 5px; }
+  .hero-visual { --bus-art-height: clamp(64px, calc(100svh - 35rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)), 8rem); }
+  .mobile-location-picker { padding-top: 8px; padding-bottom: 10px; }
+  .mobile-location-field:last-child { margin-top: 8px; }
+  .mobile-location-label { margin-bottom: 5px; }
+  .ticket-departure { padding-top: 10px; padding-bottom: 10px; }
+  .upcoming-section { padding-bottom: 10px; }
+}
+@media (min-width: 981px) {
+  body[data-view="home"] .app-shell { min-height: calc(100svh - 48px); min-height: calc(100dvh - 48px); }
+  body[data-view="home"] .bottom-nav { margin: 0 auto 16px; }
+  body[data-view="home"] .home-layout { width: 100%; padding-top: clamp(12px, 3svh, 38px); padding-bottom: clamp(20px, 4svh, 45px); }
+}
+@media (max-width: 980px) and (max-height: 620px) {
+  .ride-hero { gap: 8px; }
+  .hero-visual { --bus-art-height: clamp(64px, calc(100svh - 31.5rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)), 7rem); }
+  .section-heading { margin-left: 4px; margin-right: 4px; }
+  .section-heading h2 { font-size: 16px; white-space: nowrap; }
+  .schedule-link { font-size: 13px; }
+  .ride-actions { gap: 0; }
+  .mobile-location-picker { padding-bottom: 8px; }
+  .mobile-location-label { min-height: 18px; margin-bottom: 4px; }
+  .ticket-departure { padding-top: 8px; padding-bottom: 8px; row-gap: 6px; }
+  .countdown-display { padding: 6px; }
+  .countdown-summary small { display: none; }
+  .countdown-summary .departure-note { font-size: 10px; margin-top: 3px; }
+  .countdown-summary:has(.departure-note:not([hidden])) .departure-label { display: none; }
+  .ticket-route-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .ticket-route-copy { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; }
+  .ticket-kicker { order: 2; flex: 0 0 44px; font-size: 8px; line-height: 1.15; letter-spacing: .5px; text-align: right; }
+  .ticket-route { font-size: 19px; }
+  .upcoming-section { padding-bottom: 8px; }
+  body[data-view="home"] .bottom-nav { margin-bottom: max(8px, env(safe-area-inset-bottom)); }
+}
+@media (min-width: 981px) and (max-height: 720px) {
+  body[data-view="home"] .site-header { padding-top: 14px; padding-bottom: 4px; }
+  .mobile-location-picker { padding-top: 14px; padding-bottom: 14px; }
+  .mobile-location-field:last-child { margin-top: 12px; }
+  .ticket-departure { padding-top: 14px; padding-bottom: 14px; }
+  .ticket-footnote { margin-top: 23px; }
+}
+@media (min-width: 981px) and (max-height: 640px) {
+  body[data-view="home"] .site-header { min-height: 56px; padding-top: 8px; padding-bottom: 4px; }
+  body[data-view="home"] .brand .ku-bus-mark { width: 40px; height: 40px; }
+  body[data-view="home"] .home-layout { padding-top: 8px; padding-bottom: 8px; }
+  .section-heading { margin-bottom: 6px; }
+  .mobile-location-picker { padding-top: 10px; padding-bottom: 10px; }
+  .mobile-location-field:last-child { margin-top: 10px; }
+  .mobile-location-label { margin-bottom: 6px; }
+  .mobile-location-buttons button { min-height: 48px; }
+  .ticket-departure { padding-top: 10px; padding-bottom: 10px; row-gap: 10px; }
+  .countdown-summary small { max-width: none; }
+  .ticket-footnote { display: none; }
+  body[data-view="home"] .bottom-nav { margin-bottom: 12px; }
+}
+@media (hover: hover) {
+  .mobile-location-buttons button:not(:disabled):hover { box-shadow: 0 4px 9px #26304e1a, inset 0 1px 0 #ffffff90; }
+  .bottom-nav a:hover, .schedule-link:hover, .mobile-swap:hover { background: #ffffff65; }
+  .schedule-row:hover { background: #ffffff45; }
+  .text-link:hover { text-decoration: underline; }
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .mobile-location-picker, .ticket-departure, .schedule-panel, .announcement-empty { -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass: #f8f9fb; }
+  .mobile-location-picker, .ticket-departure, .schedule-panel, .announcement-empty, .bottom-nav { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .bottom-nav { background: #eef0f3; }
+  .bottom-nav::before { background: var(--arrival-soft); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+@media (forced-colors: active) {
+  .bottom-nav::before { display: none; }
+  .countdown-display, .countdown-unit strong { border: 1px solid CanvasText; }
+  .countdown-unit strong { text-shadow: none; }
+  .announcement-card, .notice-help .academic-note { border: 1px solid CanvasText; }
+  .notice-original summary:focus-visible { outline-color: CanvasText; }
+  .app-shell::before, .app-shell::after, .campus-scene { display: none; }
+  .departure-overview .ticket-route-header, .ticket-departure { -webkit-mask: none; mask: none; }
+  .ride-ticket, .schedule-panel, .announcement-empty, .bottom-nav, .mobile-location-buttons button, .primary-link { border: 1px solid CanvasText; }
+  .mobile-location-buttons button[aria-pressed="true"], .mobile-service-switch button[aria-pressed="true"], .bottom-nav a[aria-current="page"] { outline: 2px solid Highlight; outline-offset: -3px; }
+  .mobile-location-buttons button:disabled { color: GrayText; border-color: GrayText; }
+  .mobile-location-buttons button:focus-visible, .mobile-service-switch button:focus-visible, .bottom-nav a:focus-visible,
+  button:focus-visible, a:focus-visible { outline: 3px solid CanvasText; outline-offset: 3px; }
+}

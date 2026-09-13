@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>KU Shuttle — Your campus ride</title>
+    <meta name="description" content="Plan your Khalifa University shuttle ride, see the next bus countdown, and browse the campus timetable.">
+    <meta name="application-name" content="KU Shuttle">
+    <meta name="theme-color" content="#241018">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="KU Shuttle">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.webmanifest?v=20260913-wordmark-1">
+    <link rel="icon" type="image/png" sizes="1254x1254" href="assets/ku-bus-logo.png">
+    <link rel="apple-touch-icon" href="assets/ku-bus-logo.png">
+    <link rel="preload" href="assets/fonts/etihad-altis-book.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="assets/fonts/etihad-altis-bold.woff" as="font" type="font/woff" crossorigin>
+    <link rel="stylesheet" href="fonts.css?v=20260913-wordmark-1">
+    <link rel="stylesheet" href="mobile.css?v=20260913-wordmark-1">
+    <link rel="stylesheet" href="airline.css?v=20260913-wordmark-1">
+    <script defer src="script.js?v=20260913-wordmark-1"></script>
+    <script defer src="navigation.js?v=20260913-wordmark-1"></script>
+  </head>
+  <body data-route="san" data-pickup="main" data-view="home">
+    <svg class="logo-definitions" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="ku-logo-alpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -1.6 0 0 0 1.45"/>
+        </filter>
+        <mask id="ku-logo-mask" maskUnits="userSpaceOnUse" x="125" y="155" width="1000" height="940" style="mask-type: alpha">
+          <image href="assets/ku-bus-logo.png" width="1254" height="1254" filter="url(#ku-logo-alpha)"/>
+        </mask>
+        <symbol id="ku-shuttle-mark" viewBox="125 155 1000 940">
+          <rect x="125" y="155" width="1000" height="940" fill="currentColor" mask="url(#ku-logo-mask)"/>
+        </symbol>
+        <filter id="ku-wordmark-alpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 -1.6 0 1.45"/>
+        </filter>
+        <mask id="ku-wordmark-mask" maskUnits="userSpaceOnUse" x="125" y="205" width="1925" height="285" style="mask-type: alpha">
+          <image href="assets/ku-bus-wordmark.png" width="2172" height="724" filter="url(#ku-wordmark-alpha)"/>
+        </mask>
+        <symbol id="ku-shuttle-wordmark" viewBox="125 205 1925 285">
+          <rect x="125" y="205" width="1925" height="285" fill="currentColor" mask="url(#ku-wordmark-mask)"/>
+        </symbol>
+      </defs>
+    </svg>
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="time-pill" aria-label="Local UAE time">
+          <span class="clock-dot" aria-hidden="true"></span>
+          <div><span class="time-label">UAE time <span id="uae-day">---</span></span><strong id="uae-time">--:--:--</strong></div>
+        </div>
+        <a class="brand" href="#home" data-view-link="home" aria-label="KU Shuttle home">
+          <svg class="ku-bus-mark" viewBox="0 0 1000 940" aria-hidden="true" focusable="false"><use href="#ku-shuttle-mark" width="1000" height="940"/></svg>
+          <svg class="ku-bus-wordmark" viewBox="0 0 1925 285" aria-hidden="true" focusable="false"><use href="#ku-shuttle-wordmark" width="1925" height="285"/></svg>
+        </a>
+      </header>
+
+      <main>
+        <section id="home" data-view-panel="home" aria-labelledby="ticket-route">
+          <div class="home-layout">
+            <div class="ride-hero">
+              <article class="ride-ticket departure-overview" aria-labelledby="ticket-route">
+                <div class="ticket-route-header">
+                  <div class="ticket-route-copy">
+                    <p class="ticket-kicker">Campus shuttle</p>
+                    <h1 class="ticket-route" id="ticket-route" data-view-heading tabindex="-1">MAIN → SAN</h1>
+                  </div>
+                </div>
+                <div class="ticket-departure" id="next-card">
+                  <div class="countdown-summary">
+                    <span class="departure-label">Departure</span>
+                    <strong class="departure-time" id="next-departure">--</strong>
+                    <small class="departure-note" id="next-note" hidden></small>
+                    <small id="next-detail">Finding your next ride</small>
+                  </div>
+                  <div class="countdown-display" role="timer" aria-live="off" aria-label="Countdown to next departure">
+                    <div class="countdown-caption">Time left <span id="countdown-day">---</span></div>
+                    <div class="countdown-units">
+                      <div class="countdown-unit"><strong id="countdown-days">--</strong><span>Days</span></div>
+                      <div class="countdown-unit"><strong id="countdown-hours">--</strong><span>Hrs</span></div>
+                      <div class="countdown-unit"><strong id="countdown-minutes">--</strong><span>Mins</span></div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <div class="hero-visual">
+                <div class="campus-scene" aria-hidden="true">
+                  <span class="campus-silhouette" data-campus="main"></span>
+                  <span class="campus-silhouette" data-campus="san"></span>
+                  <span class="campus-silhouette" data-campus="masdar"></span>
+                  <span class="campus-silhouette" data-campus="rawda"></span>
+                  <span class="campus-silhouette" data-campus="kurh"></span>
+                  <span class="campus-silhouette" data-campus="lulu"></span>
+                </div>
+                <div class="hero-bus" aria-hidden="true">
+                  <img src="assets/ku-bus-cutout.png" alt="" width="2087" height="754" decoding="async" fetchpriority="high" draggable="false">
+                </div>
+              </div>
+            </div>
+
+            <section class="upcoming-section" aria-labelledby="upcoming-title">
+              <div class="section-heading">
+                <h2 id="upcoming-title">Choose your ride</h2>
+                <div class="ride-actions">
+                  <button class="mobile-swap" id="mobile-swap" type="button" aria-label="Swap pickup and destination">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 20V4m-4 4 4-4 4 4m6-4v16m-4-4 4 4 4-4"/></svg>
+                  </button>
+                  <a class="schedule-link" href="#schedule" data-view-link="schedule">View schedule <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+              <article class="ride-ticket route-selector" aria-labelledby="route-title">
+                <h3 id="route-title" class="sr-only">Main Campus to SAN Campus</h3>
+                <p id="route-label" class="sr-only">Main Campus to SAN Campus</p>
+                <div class="mobile-location-picker" aria-label="Choose your route">
+                  <div class="mobile-location-field">
+                    <p class="mobile-location-label" id="mobile-pickup-label">From <small>Pickup location</small></p>
+                    <div class="mobile-location-buttons" id="mobile-pickup" role="group" aria-labelledby="mobile-pickup-label"></div>
+                  </div>
+                  <div class="mobile-location-field">
+                    <p class="mobile-location-label" id="mobile-destination-label">To <small>Your destination</small></p>
+                    <div class="mobile-location-buttons" id="mobile-destination" role="group" aria-labelledby="mobile-destination-label"></div>
+                  </div>
+                </div>
+
+              </article>
+              <p class="ticket-footnote"><span aria-hidden="true">◷</span> All departure times are in UAE time.</p>
+            </section>
+          </div>
+        </section>
+
+        <section id="schedule" class="detail-view" data-view-panel="schedule" aria-labelledby="schedule-heading" hidden>
+          <div class="view-heading">
+            <div><p class="eyebrow">Every campus connection</p><h1 id="schedule-heading" data-view-heading tabindex="-1">Schedule</h1></div>
+            <a class="text-link" href="#home" data-view-link="home">Change route <span aria-hidden="true">↗</span></a>
+          </div>
+          <section class="schedule-panel" id="trip-panel" aria-labelledby="schedule-title">
+            <div class="schedule-intro">
+              <div><p id="mobile-route-summary" class="mobile-route-summary"></p><h2 id="schedule-title">Fall 2026 · Fourth update</h2></div>
+              <span id="service-window" class="service-window">Mon–Thu + Friday</span>
+            </div>
+            <div class="mobile-service-switch" aria-label="Timetable days" role="group">
+              <button type="button" data-mobile-service="weekday" aria-pressed="true">Mon–Thu</button>
+              <button type="button" data-mobile-service="friday" aria-pressed="false">Friday</button>
+            </div>
+            <div class="schedule-list" id="schedule-list"></div>
+          </section>
+          <p class="view-footnote">Effective 7 September 2026. All times are local to the UAE. Choose KURH or Lulu separately to see departures for that residence.</p>
+          <a class="source-link" href="documents/fall-2026-shuttle-schedule-fourth-update.pdf" target="_blank" rel="noopener">Open the full schedule PDF <span aria-hidden="true">↗</span></a>
+        </section>
+
+        <section id="announcements" class="detail-view" data-view-panel="announcements" aria-labelledby="announcements-heading" hidden>
+          <div class="view-heading"><div><p class="eyebrow">Stay in the loop</p><h1 id="announcements-heading" data-view-heading tabindex="-1">Announcements</h1></div></div>
+          <article class="announcement-card" aria-labelledby="shuttle-update-title">
+            <header class="announcement-header">
+              <span class="notice-badge">Schedule update · No. 4</span>
+              <h2 id="shuttle-update-title">Fall 2026 daily shuttle schedule</h2>
+              <p class="notice-date">Effective <time datetime="2026-09-07">Monday, 7 September 2026</time></p>
+              <p class="notice-intro">The updated Fall 2026 daily shuttle schedule is now available. The timetable and next-bus countdown use this fourth update.</p>
+              <div class="notice-actions">
+                <a class="primary-link" href="#schedule" data-view-link="schedule">View timetable <span aria-hidden="true">→</span></a>
+                <a class="source-link" href="documents/fall-2026-shuttle-schedule-fourth-update.pdf" target="_blank" rel="noopener">Open schedule PDF <span aria-hidden="true">↗</span></a>
+              </div>
+            </header>
+            <section class="notice-section" aria-labelledby="pickup-points-title">
+              <h3 id="pickup-points-title">Pickup &amp; drop-off points</h3>
+              <dl class="pickup-points">
+                <div><dt>Main Campus</dt><dd>Building E, Ground Floor.</dd></div>
+                <div><dt>SAN Campus</dt><dd>Behind Building (1) (Zarkuh).</dd></div>
+                <div><dt>Arzanah Building</dt><dd>Main Gate beside ATM Machine.</dd></div>
+                <div><dt>Masdar Residence</dt><dd>Building 4A01 – Ground Floor.</dd></div>
+                <div><dt>Umm Lulu Residence</dt><dd>Opposite Tower (1).</dd></div>
+                <div><dt>KURH (ADNOC Schools)</dt><dd>Opposite Block (A).</dd></div>
+                <div><dt>Al Rawda Residence</dt><dd>Main Gate.</dd></div>
+              </dl>
+            </section>
+            <section class="notice-section notice-help" aria-labelledby="shuttle-requests-title">
+              <h3 id="shuttle-requests-title">Need an additional shuttle time?</h3>
+              <p>Requests must be submitted through the <strong id="transportation-helpdesk">Student Transportation Helpdesk</strong>.</p>
+              <p class="academic-note">Only requests related to academic classes will be reviewed and considered.</p>
+            </section>
+            <details class="notice-original">
+              <summary>View the original announcement</summary>
+              <img src="assets/announcements/fall-2026-shuttle-update.png" alt="Original Khalifa University Fall 2026 shuttle notice, transcribed above." width="1240" height="1748" loading="lazy" decoding="async">
+            </details>
+          </article>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Main navigation">
+        <a href="#home" data-view-link="home" aria-current="page"><svg class="ku-bus-mark" viewBox="0 0 1000 940" aria-hidden="true" focusable="false"><use href="#ku-shuttle-mark" width="1000" height="940"/></svg><span>Home</span></a>
+        <a href="#schedule" data-view-link="schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4m8-4v4M4 11h16m-11 4h2m3 0h2m-7 3h2"/></svg><span>Schedule</span></a>
+        <a href="#announcements" data-view-link="announcements"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 14-5v14L4 14Z"/><path d="M8 15v5H5v-6m15-5 2-1m-2 8 2 1"/></svg><span>Announcements</span></a>
+      </nav>
+    </div>
+  </body>
+</html>
