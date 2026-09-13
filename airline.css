@@ -84,7 +84,7 @@ body { background: #ece8db; -webkit-font-smoothing: antialiased; font-synthesis:
 .mobile-location-buttons button[aria-pressed="true"] { border-color: var(--stop-bright); color: #21131b; background: var(--stop-bright); box-shadow: none; font-weight: 600; }
 .mobile-location-buttons button[aria-pressed="true"]::after { border-color: var(--campus-tint); color: #21131b; background: var(--stop-bright); }
 .mobile-location-buttons button:disabled { color: #817780; border-color: #ffffff0d; background: #ffffff04; box-shadow: none; }
-.stop-detail { display: none; }
+.stop-detail, .desktop-route-caption { display: none; }
 .ticket-footnote { color: var(--page-muted); font-size: 11px; }
 
 .bottom-nav { border-color: #ffffff22; background: color-mix(in srgb, var(--campus-tint) 88%, #ffffff); box-shadow: 0 12px 28px #0004, inset 0 1px 0 #ffffff08; }
@@ -146,101 +146,105 @@ button:focus-visible, a:focus-visible { outline-color: var(--arrival-accent); }
 @media (min-width: 760px) {
   .view-heading h1 { font-size: 40px; }
 }
+/* Desktop uses the whole campus-coloured canvas, with separate journey and planning columns. */
 @media (min-width: 981px) {
-  body { padding: 20px; }
-  .app-shell { max-width: 1280px; min-height: calc(100svh - 40px); border: 1px solid #ffffff12; border-radius: 28px; background: radial-gradient(ellipse at 0 20%, #ffffff04, transparent 65%), var(--campus-tint); box-shadow: 0 24px 64px #30222021; }
-  body[data-view="home"] .app-shell { min-height: calc(100svh - 40px); min-height: calc(100dvh - 40px); }
-  body[data-view] .site-header { min-height: 90px; margin: 0 40px; padding: 20px 0; border-bottom: 1px solid #ffffff12; }
-  .brand { order: -1; gap: 10px; }
-  .brand .ku-bus-mark { width: 42px; height: 42px; }
-  .ku-bus-wordmark { width: 152px; }
+  body { --desktop-gutter: clamp(32px, 4vw, 72px); padding: 0; background: var(--campus-tint); }
+  .app-shell, body[data-view="home"] .app-shell { width: 100%; max-width: none; min-height: 100svh; min-height: 100dvh; margin: 0; border: 0; border-radius: 0; background: radial-gradient(ellipse at 8% 65%, #ffffff05, transparent 58%), var(--campus-tint); box-shadow: none; }
+  body[data-view] .site-header { width: calc(100% - var(--desktop-gutter) * 2); max-width: 1556px; min-height: 96px; margin: 0 auto; padding: 22px 0; border-bottom: 1px solid #ffffff15; }
+  .brand { order: -1; gap: 12px; }
+  .brand .ku-bus-mark { width: 46px; height: 46px; }
+  .ku-bus-wordmark { width: 166px; }
   .time-pill { padding: 0; gap: 12px; }
   .time-label { font-size: 11px; }
   #uae-day::before { content: "· "; }
-  #uae-time { margin-top: 4px; font-size: 16px; letter-spacing: 1px; }
-  .home-layout, body[data-view="home"] .home-layout { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); align-items: start; align-content: center; gap: 32px; max-width: none; padding: 24px 40px; }
-  .ride-hero { gap: 20px; }
-  .departure-overview .ticket-route-header { padding: 0 2px 24px; }
-  .ticket-route-copy { gap: 10px; }
-  .ticket-route { font-size: clamp(36px, 3.4vw, 46px); letter-spacing: -.6px; }
-  .ticket-kicker { font-size: 10px; letter-spacing: 2px; }
-  .ticket-departure { --tear-position: 48%; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 28px; min-height: 164px; padding: 26px 24px; border-radius: 22px; }
-  .departure-time { margin-bottom: 10px; font-size: clamp(30px, 3vw, 42px); letter-spacing: -1px; }
-  .departure-label { margin-bottom: 10px; }
-  .departure-label, .countdown-caption, #countdown-day { font-size: 11px; }
-  .countdown-summary small { max-width: 22ch; font-size: 12px; line-height: 1.5; }
-  .countdown-units { margin-top: 14px; gap: 10px; }
-  .countdown-unit { gap: 9px; }
-  .countdown-unit strong { font-size: clamp(30px, 2.8vw, 38px); }
+  #uae-time { margin-top: 5px; font-size: 17px; letter-spacing: 1px; }
+  .home-layout, body[data-view="home"] .home-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr); grid-template-areas: "route departure" "visual planner"; align-items: center; align-content: center; gap: 26px clamp(36px, 5vw, 80px); width: 100%; max-width: 1700px; padding: 30px var(--desktop-gutter) 26px; }
+  .ride-hero, .departure-overview { display: contents; }
+  .departure-overview .ticket-route-header { grid-area: route; align-self: center; padding: 0; margin: 0; }
+  .ticket-route-copy { gap: 14px; }
+  .ticket-kicker { font-size: 11px; letter-spacing: 2.6px; }
+  .ticket-route { font-size: clamp(44px, 4.6vw, 76px); font-weight: 400; line-height: 1.08; letter-spacing: -1.8px; }
+  .desktop-route-caption { display: block; color: var(--page-muted); font-size: 15px; line-height: 1.5; }
+  .ticket-departure { grid-area: departure; --tear-position: 46%; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 26px; min-height: 164px; padding: 24px; border-radius: 20px; }
+  .departure-label { margin-bottom: 10px; font-size: 10px; letter-spacing: 1px; }
+  .departure-time { margin-bottom: 10px; font-size: clamp(30px, 2.8vw, 42px); letter-spacing: -1px; }
+  .countdown-summary small { max-width: 22ch; font-size: 11px; line-height: 1.5; }
+  .countdown-caption, #countdown-day { font-size: 10px; }
+  .countdown-units { margin-top: 14px; gap: 8px; }
+  .countdown-unit { gap: 8px; }
+  .countdown-unit strong { font-size: clamp(29px, 2.5vw, 36px); }
   .countdown-unit + .countdown-unit { border-left: 1px solid #eee9ec; }
-  .countdown-unit span { font-size: 9px; letter-spacing: 1px; }
-  .hero-visual { isolation: isolate; height: clamp(180px, 28svh, 260px); overflow: hidden; border: 1px solid #ffffff0c; border-radius: 20px; background: linear-gradient(160deg, #ffffff01, #ffffff05); }
-  .hero-bus { width: 100%; height: 100%; margin: 0; -webkit-mask: linear-gradient(to right, #000 92%, transparent); mask: linear-gradient(to right, #000 92%, transparent); }
-  .campus-scene { inset: 0; opacity: .5; }
-  .campus-silhouette { background-position: left bottom; background-size: auto 110%; }
-  .upcoming-section { display: flex; flex-direction: column; align-self: stretch; padding: 22px; border: 1px solid #ffffff16; border-radius: 24px; background: linear-gradient(135deg, #ffffff07, #ffffff02); box-shadow: 0 16px 36px #00000010; }
-  .section-heading { margin: 0 0 16px; padding-bottom: 14px; border-bottom: 1px solid #ffffff12; }
-  .section-heading h2 { font-size: 20px; letter-spacing: -.4px; }
-  .ride-actions { gap: 8px; }
-  .mobile-swap { width: 36px; height: 36px; border: 1px solid #ffffff18; border-radius: 10px; }
-  .schedule-link { min-height: 36px; padding: 0; font-size: 12px; }
+  .countdown-unit span { font-size: 9px; letter-spacing: .7px; }
+  .hero-visual { grid-area: visual; align-self: end; isolation: isolate; width: calc(100% + var(--desktop-gutter)); height: clamp(220px, 43svh, 430px); margin-left: calc(-1 * var(--desktop-gutter)); overflow: hidden; border: 0; border-radius: 0; background: none; }
+  .hero-bus { width: 100%; height: 100%; margin: 0; -webkit-mask: linear-gradient(to right, #000 97%, transparent); mask: linear-gradient(to right, #000 97%, transparent); filter: drop-shadow(0 18px 18px #0005); }
+  .campus-scene { inset: 0; opacity: .48; }
+  .campus-silhouette { background-position: left bottom; background-size: auto 112%; }
+  .upcoming-section { grid-area: planner; display: flex; flex-direction: column; align-self: stretch; padding: 24px; border: 1px solid #ffffff1c; border-radius: 20px; background: #ffffff05; box-shadow: none; }
+  .section-heading { margin: 0 0 18px; padding-bottom: 16px; border-bottom: 1px solid #ffffff15; }
+  .section-heading h2 { font-size: 21px; letter-spacing: -.4px; }
+  .ride-actions { gap: 10px; }
+  .mobile-swap { width: 38px; height: 38px; border: 1px solid #ffffff20; border-radius: 10px; }
+  .schedule-link { min-height: 38px; padding: 0; font-size: 12px; }
   .mobile-location-picker { padding: 0; border: 0; border-radius: 0; background: none; }
   .mobile-location-label { gap: 10px; margin-bottom: 10px; font-size: 14px; }
   .mobile-location-label small { font-size: 11px; }
-  .mobile-location-field:last-child { margin-top: 16px; padding-top: 16px; border-top: 1px solid #ffffff12; }
+  .mobile-location-field:last-child { margin-top: 18px; padding-top: 18px; border-top: 1px solid #ffffff15; }
   .mobile-location-buttons { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .mobile-location-buttons button { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 5px; min-height: 58px; padding: 10px 12px; border-radius: 11px; font-size: 14px; text-align: left; }
+  .mobile-location-buttons button { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 5px; min-height: 56px; padding: 10px 12px; border-radius: 10px; font-size: 14px; text-align: left; }
   .stop-detail { display: block; color: var(--page-muted); font-size: 10px; line-height: 1.2; font-weight: 400; }
   .mobile-location-buttons button[aria-pressed="true"] .stop-detail { color: #392d35; }
   .mobile-location-buttons button:disabled .stop-detail { color: inherit; }
-  .mobile-location-buttons button[aria-pressed="true"]::after { top: 8px; right: 8px; width: 14px; height: 14px; border: 0; background: #21131b; color: var(--stop-bright); }
-  .ticket-footnote { margin: auto 0 0; padding-top: 16px; font-size: 10px; text-align: left; }
-  .bottom-nav { width: 500px; bottom: 36px; padding: 5px; }
-  .bottom-nav a { flex-direction: row; gap: 9px; min-height: 44px; font-size: 12px; }
+  .mobile-location-buttons button[aria-pressed="true"]::after { top: 7px; right: 7px; width: 13px; height: 13px; border: 0; background: #21131b; color: var(--stop-bright); }
+  .ticket-footnote { display: none; }
+  .bottom-nav { width: 510px; bottom: 22px; padding: 5px; }
+  .bottom-nav a { flex-direction: row; gap: 10px; min-height: 44px; font-size: 12px; }
   .bottom-nav .ku-bus-mark { width: 23px; height: 23px; }
-  body[data-view="home"] .bottom-nav { margin-bottom: 20px; }
-  .detail-view { width: 100%; padding-top: 32px; }
+  body[data-view="home"] .bottom-nav { margin-bottom: 22px; }
+  .detail-view { width: 100%; max-width: 1200px; padding-top: 36px; }
   .schedule-panel, .announcement-card { border-radius: 20px; }
 }
-/* A shorter desktop window keeps six compact options in each row. */
-@media (min-width: 981px) and (max-height: 760px) {
-  body[data-view] .site-header { min-height: 76px; padding: 16px 0; }
-  .home-layout, body[data-view="home"] .home-layout { padding-top: 22px; padding-bottom: 22px; }
-  .ride-hero { gap: 16px; }
-  .ticket-route { font-size: 36px; }
-  .departure-overview .ticket-route-header { padding-bottom: 20px; }
-  .ticket-departure { min-height: 144px; padding-top: 20px; padding-bottom: 20px; }
-  .departure-time { font-size: 32px; }
+@media (min-width: 981px) and (max-height: 820px) {
+  body[data-view] .site-header { min-height: 74px; padding: 14px 0; }
+  .home-layout, body[data-view="home"] .home-layout { row-gap: 20px; padding-top: 16px; padding-bottom: 16px; }
+  .ticket-route-copy { gap: 11px; }
+  .ticket-route { font-size: clamp(42px, 4.2vw, 66px); }
+  .ticket-departure { min-height: 136px; padding: 18px 22px; }
+  .departure-time { font-size: 32px; margin-bottom: 8px; }
   .countdown-unit strong { font-size: 30px; }
-  .hero-visual { height: clamp(150px, 25svh, 185px); }
-  .upcoming-section { align-self: center; padding: 20px; }
-  .mobile-location-buttons { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
-  .mobile-location-buttons button { align-items: center; min-height: 56px; padding: 6px 0; font-size: 11px; text-align: center; }
-  .stop-detail { display: none; }
-  .mobile-location-buttons button[aria-pressed="true"]::after { top: 4px; right: 4px; width: 10px; height: 10px; font-size: 7px; }
-  .section-heading { margin-bottom: 18px; padding-bottom: 14px; }
-  .section-heading h2 { font-size: 18px; }
-  .mobile-location-field:last-child { margin-top: 18px; padding-top: 18px; }
-  .ticket-footnote { margin-top: 18px; padding-top: 0; }
+  .countdown-units { margin-top: 11px; }
+  .upcoming-section { padding: 16px 22px; }
+  .section-heading { margin-bottom: 12px; padding-bottom: 12px; }
+  .section-heading h2 { font-size: 19px; }
+  .mobile-location-buttons button { min-height: 48px; gap: 3px; padding: 6px 10px; font-size: 13px; }
+  .mobile-location-label { margin-bottom: 8px; }
+  .mobile-location-field:last-child { margin-top: 12px; padding-top: 12px; }
+  .ticket-footnote { display: none; }
+  .hero-visual { height: clamp(200px, 43svh, 360px); }
+  body[data-view="home"] .bottom-nav { margin-bottom: 14px; }
 }
-@media (min-width: 981px) and (max-height: 640px) {
-  body { padding: 16px; }
-  .app-shell, body[data-view="home"] .app-shell { min-height: calc(100svh - 32px); min-height: calc(100dvh - 32px); }
-  body[data-view] .site-header { min-height: 64px; margin: 0 32px; padding: 12px 0; }
-  .home-layout, body[data-view="home"] .home-layout { gap: 26px; padding: 18px 32px; }
-  .ride-hero { gap: 12px; }
-  .ticket-route { font-size: 32px; }
-  .ticket-route-copy { gap: 7px; }
-  .departure-overview .ticket-route-header { padding-bottom: 16px; }
-  .ticket-departure { min-height: 128px; padding: 18px 20px; gap: 26px; }
-  .departure-time, .countdown-unit strong { font-size: 29px; }
-  .countdown-summary small { font-size: 11px; }
+/* Compact laptop windows retain six options without forcing a page scroll. */
+@media (min-width: 981px) and (max-height: 720px) {
+  body[data-view] .site-header { min-height: 66px; padding: 10px 0; }
+  .home-layout, body[data-view="home"] .home-layout { gap: 18px 36px; padding-top: 18px; padding-bottom: 18px; }
+  .ticket-route { font-size: clamp(38px, 4vw, 54px); }
+  .desktop-route-caption { font-size: 13px; }
+  .ticket-route-copy { gap: 9px; }
+  .ticket-departure { min-height: 126px; padding: 18px; gap: 22px; }
+  .departure-time, .countdown-unit strong { font-size: 28px; }
+  .departure-label { margin-bottom: 8px; }
+  .countdown-summary small { font-size: 10px; }
   .countdown-units { margin-top: 10px; }
-  .hero-visual { height: 150px; }
-  .upcoming-section { padding: 18px; }
-  .mobile-location-buttons button { min-height: 50px; }
+  .hero-visual { height: clamp(180px, 39svh, 240px); }
+  .upcoming-section { align-self: center; padding: 16px; }
+  .section-heading { margin-bottom: 14px; padding-bottom: 10px; }
+  .section-heading h2 { font-size: 17px; }
+  .mobile-location-field:last-child { margin-top: 12px; padding-top: 12px; }
+  .mobile-location-buttons { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
+  .mobile-location-buttons button { align-items: center; min-height: 48px; padding: 6px 0; font-size: 11px; text-align: center; }
+  .stop-detail { display: none; }
+  .mobile-location-buttons button[aria-pressed="true"]::after { top: 3px; right: 3px; width: 10px; height: 10px; font-size: 7px; }
   .bottom-nav a { min-height: 40px; }
-  body[data-view="home"] .bottom-nav { margin-bottom: 16px; }
+  body[data-view="home"] .bottom-nav { margin-bottom: 14px; }
 }
 /* Keep the phone composition, refining surfaces without taking extra height. */
 @media (max-width: 980px) {

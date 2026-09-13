@@ -318,6 +318,7 @@ const elements = {
   nextDetail: document.querySelector("#next-detail"),
   nextNote: document.querySelector("#next-note"),
   ticketRoute: document.querySelector("#ticket-route"),
+  desktopRouteCaption: document.querySelector("#desktop-route-caption"),
   countdownDay: document.querySelector("#countdown-day"),
   countdownDays: document.querySelector("#countdown-days"),
   countdownHours: document.querySelector("#countdown-hours"),
@@ -747,6 +748,9 @@ function renderTrip() {
   elements.label.textContent = `${pickupLabel} to ${destinationLabel}`.toUpperCase();
   elements.title.textContent = `${pickupLabel} to ${destinationLabel}`;
   elements.ticketRoute.textContent = `${ticketLocationLabels[pickup]} → ${ticketLocationLabels[destination]}`;
+  if (elements.desktopRouteCaption) {
+    elements.desktopRouteCaption.textContent = `${pickupLabel} to ${destinationLabel}`;
+  }
   elements.serviceWindow.textContent = getServiceWindowLabel(groups);
   elements.mobileRouteSummary.textContent = getAllRows(groups).find((scheduleRow) => !getDepartureNote(scheduleRow))?.[1].replace(" -> ", " → ") || `${pickupLabel} → ${destinationLabel}`;
 
