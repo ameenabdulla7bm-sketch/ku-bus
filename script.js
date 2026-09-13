@@ -338,6 +338,7 @@ let destination = "san";
 let mobileService = getUaeNowParts().day === 5 ? "friday" : "weekday";
 
 const mobileLocationLabels = { main: "Main", san: "SAN", masdar: "Masdar", rawda: "Rawda", kurh: "KURH", lulu: "LULU" };
+const mobileLocationDetails = { main: "Campus", san: "Campus", masdar: "Residence", rawda: "Residence", kurh: "ADNOC Schools", lulu: "Residence" };
 const ticketLocationLabels = { main: "MAIN", san: "SAN", masdar: "MASDAR", rawda: "RAWDA", kurh: "KURH", lulu: "LULU" };
 
 for (const container of [elements.mobilePickup, elements.mobileDestination]) {
@@ -346,7 +347,14 @@ for (const container of [elements.mobilePickup, elements.mobileDestination]) {
     const button = document.createElement("button");
     button.type = "button";
     button.dataset.mobileLocation = locationId;
-    button.textContent = mobileLocationLabels[locationId];
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "stop-name";
+    nameSpan.textContent = mobileLocationLabels[locationId];
+    const detailSpan = document.createElement("span");
+    detailSpan.className = "stop-detail";
+    detailSpan.textContent = mobileLocationDetails[locationId];
+    detailSpan.setAttribute("aria-hidden", "true");
+    button.append(nameSpan, detailSpan);
     button.setAttribute("aria-label", locations[locationId].label.replace("MAIN", "Main"));
     button.addEventListener("click", () => {
       if (isPickup) {

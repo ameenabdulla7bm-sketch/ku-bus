@@ -1,16 +1,16 @@
-const CACHE_NAME = "ku-shuttle-pwa-20260913-wordmark-1";
+const CACHE_NAME = "ku-shuttle-pwa-20260913-desktop-polish-2";
 
 const PRECACHE_ASSETS = [
   "./",
   "./index.html",
-  "./fonts.css?v=20260913-wordmark-1",
+  "./fonts.css?v=20260913-desktop-polish-2",
   "./assets/fonts/etihad-altis-book.woff",
   "./assets/fonts/etihad-altis-bold.woff",
-  "./mobile.css?v=20260913-wordmark-1",
-  "./airline.css?v=20260913-wordmark-1",
-  "./script.js?v=20260913-wordmark-1",
-  "./navigation.js?v=20260913-wordmark-1",
-  "./manifest.webmanifest?v=20260913-wordmark-1",
+  "./mobile.css?v=20260913-desktop-polish-2",
+  "./airline.css?v=20260913-desktop-polish-2",
+  "./script.js?v=20260913-desktop-polish-2",
+  "./navigation.js?v=20260913-desktop-polish-2",
+  "./manifest.webmanifest?v=20260913-desktop-polish-2",
   "./assets/ku-bus-logo.png",
   "./assets/ku-bus-wordmark.png",
   "./assets/app-icon-180.png",
