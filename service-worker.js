@@ -1,16 +1,18 @@
-const CACHE_NAME = "ku-shuttle-pwa-20260913-android-1";
+const CACHE_NAME = "ku-shuttle-pwa-v2-20260913-cache-fix-1";
+const APP_SHELL = new URL("./index.html", self.registration.scope).href;
+const NETWORK_TIMEOUT_MS = 4000;
 
 const PRECACHE_ASSETS = [
   "./",
   "./index.html",
-  "./fonts.css?v=20260913-android-1",
+  "./fonts.css?v=20260913-cache-fix-1",
   "./assets/fonts/etihad-altis-book.woff",
   "./assets/fonts/etihad-altis-bold.woff",
-  "./mobile.css?v=20260913-android-1",
-  "./airline.css?v=20260913-android-1",
-  "./script.js?v=20260913-android-1",
-  "./navigation.js?v=20260913-android-1",
-  "./manifest.webmanifest?v=20260913-android-1",
+  "./mobile.css?v=20260913-cache-fix-1",
+  "./airline.css?v=20260913-cache-fix-1",
+  "./script.js?v=20260913-cache-fix-1",
+  "./navigation.js?v=20260913-cache-fix-1",
+  "./manifest.webmanifest?v=20260913-cache-fix-1",
   "./assets/ku-bus-logo.png",
   "./assets/ku-bus-wordmark.png",
   "./assets/app-icon-180.png",
@@ -44,22 +46,56 @@ const PRECACHE_ASSETS = [
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(PRECACHE_ASSETS))
+      .then((cache) => cache.addAll(PRECACHE_ASSETS.map((path) => new Request(
+        new URL(path, self.registration.scope), { cache: "reload" }
+      ))))
       .then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys()
-      .then((cacheNames) => Promise.all(
-        cacheNames
-          .filter((cacheName) => cacheName.startsWith("ku-shuttle-pwa-") && cacheName !== CACHE_NAME)
-          .map((cacheName) => caches.delete(cacheName))
-      ))
-      .then(() => self.clients.claim())
-  );
+  event.waitUntil((async () => {
+    const names = await caches.keys();
+    const migratingLegacyCache = names.some((name) => name.startsWith("ku-shuttle-pwa-") && !name.startsWith("ku-shuttle-pwa-v2-"));
+    await Promise.all(names.filter((name) => name.startsWith("ku-shuttle-pwa-") && name !== CACHE_NAME).map((name) => caches.delete(name)));
+    await self.clients.claim();
+
+    // Old pages predate the controllerchange listener. Refresh them once so
+    // they can receive this fix; future releases use the page-side listener.
+    if (migratingLegacyCache) {
+      const windows = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+      const scope = new URL(self.registration.scope);
+      for (const client of windows) {
+        const url = new URL(client.url);
+        if (url.origin === scope.origin && (url.pathname === scope.pathname || url.pathname === scope.pathname + "index.html")) {
+          // Do not await navigation: its fetch may need activation to finish.
+          client.navigate(client.url).catch(() => {});
+        }
+      }
+    }
+  })());
 });
+
+async function navigationResponse(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), NETWORK_TIMEOUT_MS);
+  try {
+    // Revalidate HTML instead of allowing either cache layer to pin an old UI.
+    const response = await fetch(request, { cache: "no-cache", signal: controller.signal });
+    if (response.ok) {
+      try { await cache.put(APP_SHELL, response.clone()); } catch { /* Storage may be full. */ }
+      return response;
+    }
+    return (await cache.match(APP_SHELL)) || response;
+  } catch {
+    return (await cache.match(APP_SHELL)) || new Response("KU Bus is offline. Reconnect and refresh to load the timetable.", {
+      status: 503, headers: { "Content-Type": "text/plain; charset=utf-8" }
+    });
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 self.addEventListener("fetch", (event) => {
   const { request } = event;
@@ -76,13 +112,19 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (!sameOrigin) {
-    event.respondWith(fetch(request));
+  if (!sameOrigin) return;
+
+  if (request.mode === "navigate") {
+    const scope = new URL(self.registration.scope);
+    // Documents such as PDFs keep their real responses, even while offline.
+    if (requestUrl.pathname === scope.pathname || requestUrl.pathname === scope.pathname + "index.html") {
+      event.respondWith(navigationResponse(request));
+    }
     return;
   }
 
   event.respondWith(
-    caches.match(request)
+    caches.open(CACHE_NAME).then((cache) => cache.match(request))
       .then((cachedResponse) => {
         if (cachedResponse) {
           return cachedResponse;
@@ -92,17 +134,13 @@ self.addEventListener("fetch", (event) => {
           .then((networkResponse) => {
             if (networkResponse && networkResponse.ok) {
               const responseClone = networkResponse.clone();
-              caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
+              event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone)).catch(() => {}));
             }
 
             return networkResponse;
           })
           .catch(() => {
-            if (request.mode === "navigate") {
-              return caches.match("./index.html");
-            }
-
-            return caches.match(request);
+            return new Response("Resource unavailable offline", { status: 503 });
           });
       })
   );

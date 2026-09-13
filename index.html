@@ -9,18 +9,18 @@
     <meta name="theme-color" content="#241018">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="KU Shuttle">
+    <meta name="apple-mobile-web-app-title" content="KU Bus">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="manifest.webmanifest?v=20260913-android-1">
+    <link rel="manifest" href="manifest.webmanifest?v=20260913-cache-fix-1">
     <link rel="icon" type="image/png" sizes="1254x1254" href="assets/ku-bus-logo.png">
     <link rel="apple-touch-icon" href="assets/ku-bus-logo.png">
     <link rel="preload" href="assets/fonts/etihad-altis-book.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="assets/fonts/etihad-altis-bold.woff" as="font" type="font/woff" crossorigin>
-    <link rel="stylesheet" href="fonts.css?v=20260913-android-1">
-    <link rel="stylesheet" href="mobile.css?v=20260913-android-1">
-    <link rel="stylesheet" href="airline.css?v=20260913-android-1">
-    <script defer src="script.js?v=20260913-android-1"></script>
-    <script defer src="navigation.js?v=20260913-android-1"></script>
+    <link rel="stylesheet" href="fonts.css?v=20260913-cache-fix-1">
+    <link rel="stylesheet" href="mobile.css?v=20260913-cache-fix-1">
+    <link rel="stylesheet" href="airline.css?v=20260913-cache-fix-1">
+    <script defer src="script.js?v=20260913-cache-fix-1"></script>
+    <script defer src="navigation.js?v=20260913-cache-fix-1"></script>
   </head>
   <body data-route="san" data-pickup="main" data-view="home">
     <svg class="logo-definitions" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
@@ -200,21 +200,34 @@
                 Download APK
               </a>
               <p class="download-requirements">For Android 8.0 or later.</p>
-            </article>
-            <div class="download-guides">
-              <section class="install-guide" aria-labelledby="install-heading">
-                <h2 id="install-heading">Install in a few taps</h2>
+              <details class="platform-install-help android-install-help">
+                <summary>How to install on Android</summary>
                 <ol class="install-steps">
                   <li><strong>Download the APK</strong><p>Tap Download APK on your Android phone.</p></li>
-                  <li><strong>Open the file</strong><p>Find <span class="apk-filename">ku-bus.apk</span> in your browser downloads and open it.</p></li>
+                  <li><strong>Open the file</strong><p>Open <span class="apk-filename">ku-bus.apk</span> from your browser downloads.</p></li>
                   <li><strong>Install KU Bus</strong><p>If Android prompts you, allow your browser to install this app, then tap Install.</p></li>
                 </ol>
-              </section>
-              <section class="iphone-guide" aria-labelledby="iphone-heading">
-                <h2 id="iphone-heading">Using an iPhone?</h2>
-                <p>Open this website in Safari, tap Share, then <strong>Add to Home Screen</strong>. The Android APK does not install on iPhone.</p>
-              </section>
-            </div>
+              </details>
+            </article>
+            <article class="download-card iphone-download-card" aria-labelledby="iphone-heading">
+              <div class="download-app-icon" aria-hidden="true"><svg class="ku-bus-mark" viewBox="0 0 1000 940" focusable="false"><use href="#ku-shuttle-mark" width="1000" height="940"/></svg></div>
+              <p class="download-platform">iPhone &amp; iPad · Web app</p>
+              <h2 id="iphone-heading">KU Bus on your<br>Home Screen.</h2>
+              <p class="download-description">Add KU Bus from Safari for quick access to your campus ride in its own app window.</p>
+              <details class="platform-install-help" id="iphone-install-help">
+                <summary class="apk-download-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M10 18h4m-2-6V6m-3 3 3-3 3 3"/></svg>
+                  Set up on iPhone
+                </summary>
+                <ol class="install-steps">
+                  <li><strong>Open in Safari</strong><p>Open this website in Safari on your iPhone or iPad.</p></li>
+                  <li><strong>Tap Share</strong><p>Tap the square with an upward arrow, then choose <strong>Add to Home Screen</strong>. Share may be inside the More menu.</p></li>
+                  <li><strong>Add KU Bus</strong><p>If shown, leave <strong>Open as Web App</strong> switched on, then tap <strong>Add</strong>. Open KU Bus from its new Home Screen icon.</p></li>
+                </ol>
+                <a class="apple-help-link" href="https://support.apple.com/guide/iphone/iphea86e5236/ios" target="_blank" rel="noopener noreferrer">Apple’s step-by-step guide ↗</a>
+              </details>
+              <p class="download-requirements">No IPA file or App Store download needed.</p>
+            </article>
           </div>
         </section>
       </main>

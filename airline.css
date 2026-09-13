@@ -139,6 +139,19 @@ button:focus-visible, a:focus-visible { outline-color: var(--arrival-accent); }
 .apk-filename { white-space: nowrap; }
 .iphone-guide p { margin-top: 12px; }
 .iphone-guide strong { color: var(--page-text); font-weight: 400; }
+.platform-install-help summary { cursor: pointer; }
+.platform-install-help summary:focus-visible { outline: 2px solid var(--arrival-ink); outline-offset: 4px; }
+.platform-install-help summary.apk-download-link { list-style: none; }
+.platform-install-help summary.apk-download-link::-webkit-details-marker { display: none; }
+.platform-install-help[open] summary.apk-download-link { background: var(--arrival-soft); color: var(--arrival-ink); }
+.platform-install-help .install-steps { padding-top: 4px; }
+.download-card .install-steps strong { color: var(--ink); }
+.download-card .install-steps p { color: var(--muted); }
+.download-card .install-steps p strong { display: inline; padding: 0; font-size: inherit; }
+.download-card .install-steps li::before { color: var(--arrival-ink); border-color: #d9d3d7; }
+.android-install-help { margin-top: 24px; padding-top: 18px; border-top: 1px solid #e5dfe3; }
+.android-install-help summary { color: var(--arrival-ink); font-size: 13px; }
+.apple-help-link { display: inline-block; padding: 14px 0; margin-top: 12px; color: var(--arrival-ink); font-size: 12px; text-decoration: underline; }
 @media (min-width: 760px) {
   .download-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 28px; }
   .download-card { padding: 36px; }

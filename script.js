@@ -336,6 +336,20 @@ const elements = {
 
 let pickup = "main";
 let destination = "san";
+
+// Preserve the current ride across a background app update or page refresh.
+try {
+  const savedRoute = JSON.parse(sessionStorage.getItem("ku-bus-session-route") || "null");
+  if (savedRoute && Object.prototype.hasOwnProperty.call(locations, savedRoute.pickup) && Object.prototype.hasOwnProperty.call(locations, savedRoute.destination)) {
+    pickup = savedRoute.pickup;
+    destination = savedRoute.destination;
+  }
+} catch {
+  // Storage can be unavailable in private browsing.
+}
+window.addEventListener("pagehide", () => {
+  try { sessionStorage.setItem("ku-bus-session-route", JSON.stringify({ pickup, destination })); } catch {}
+});
 let mobileService = getUaeNowParts().day === 5 ? "friday" : "weekday";
 
 const mobileLocationLabels = { main: "Main", san: "SAN", masdar: "Masdar", rawda: "Rawda", kurh: "KURH", lulu: "LULU" };
@@ -827,11 +841,37 @@ function registerServiceWorker() {
     return;
   }
 
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js").catch(() => {
-      // The app still works online if the browser blocks service worker setup.
-    });
+  let hasController = Boolean(navigator.serviceWorker.controller);
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!hasController) {
+      hasController = true;
+      return;
+    }
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
   });
+
+  const register = async () => {
+    try {
+      const registration = await navigator.serviceWorker.register("./service-worker.js", { updateViaCache: "none" });
+      let lastCheck = 0;
+      const checkForUpdate = () => {
+        if (document.visibilityState === "hidden" || Date.now() - lastCheck < 60000) return;
+        lastCheck = Date.now();
+        registration.update().catch(() => {});
+      };
+      checkForUpdate();
+      document.addEventListener("visibilitychange", checkForUpdate);
+      window.addEventListener("online", checkForUpdate);
+      window.setInterval(checkForUpdate, 5 * 60 * 1000);
+    } catch {
+      // The app still works online if the browser blocks service worker setup.
+    }
+  };
+  if (document.readyState === "complete") register();
+  else window.addEventListener("load", register, { once: true });
 }
 
 function playBusIntro() {

@@ -1,6 +1,6 @@
 {
-  "name": "Khalifa University Daily Shuttle Bus Service",
-  "short_name": "KU Shuttle",
+  "name": "KU Bus \u2014 Campus Shuttle",
+  "short_name": "KU Bus",
   "description": "Khalifa University daily shuttle timetable with route filtering, UAE time, next departure, and live route status.",
   "start_url": "./index.html",
   "scope": "./",

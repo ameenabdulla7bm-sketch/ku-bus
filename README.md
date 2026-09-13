@@ -49,3 +49,18 @@ The timetable is the supplied Fall 2026 fourth update, not a live transport feed
 ## Android app
 
 The Download tab links to `downloads/ku-bus.apk` (v1.0, Android 8+). The app opens the live GitHub Pages site and falls back to a dated bundled copy when the site cannot load. APK files are excluded from service-worker caching. Publishing the website requires committing and pushing the `downloads` folder along with the updated HTML, scripts, and styles. The Android source and rebuild instructions are in `android/`; private signing keys are stored outside the repository.
+
+## Automatic updates and iPhone installation
+
+The Download view has an iPhone/iPad web-app card with expandable Safari instructions. Safari → Share → Add to Home Screen → leave Open as Web App on if shown → Add. The installed name is KU Bus, and the manifest uses standalone display. No IPA or Apple Developer account is needed for this Home Screen web app.
+
+HTML now revalidates online first, with a four-second timeout and the cached app shell as an offline fallback. Each release precaches fresh assets with HTTP cache bypass. Only KU-owned old caches are removed. Older cache-first clients migrate with one in-scope refresh; later releases reload on controller change. Visible sessions check for updates on return, reconnection and at five-minute intervals. The current route is preserved across reloads in session storage. Already-open legacy tabs need a refresh/reopen after the fix is published to trigger the browser's update check.
+
+Cache regression checks (Node 18+):
+
+```sh
+node tests/sw-regression.mjs
+node tests/registration-regression.mjs
+```
+
+All 18 automated checks passed. A browser test also verified migration from the prior cache-first worker, preservation of query/hash, and a subsequent update retaining the selected Masdar → Main route. The Android 1.0 APK is unchanged; it loads this updated live website when online. Its dated offline copy remains the version bundled when that APK was built.
