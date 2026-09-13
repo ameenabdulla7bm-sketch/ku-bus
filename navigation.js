@@ -2,7 +2,7 @@
   "use strict";
 
   function initializeNavigation() {
-    const viewNames = new Set(["home", "schedule", "announcements"]);
+    const viewNames = new Set(["home", "schedule", "announcements", "download"]);
     const panels = Array.from(document.querySelectorAll("[data-view-panel]"));
     const links = Array.from(document.querySelectorAll("[data-view-link]"));
 

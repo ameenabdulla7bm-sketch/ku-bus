@@ -823,7 +823,7 @@ function updateUaeTime() {
 }
 
 function registerServiceWorker() {
-  if (!("serviceWorker" in navigator) || window.location.protocol === "file:") {
+  if (!("serviceWorker" in navigator) || window.location.protocol === "file:" || window.location.hostname === "appassets.androidplatform.net") {
     return;
   }
 

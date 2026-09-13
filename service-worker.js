@@ -1,16 +1,16 @@
-const CACHE_NAME = "ku-shuttle-pwa-20260913-desktop-canvas-2";
+const CACHE_NAME = "ku-shuttle-pwa-20260913-android-1";
 
 const PRECACHE_ASSETS = [
   "./",
   "./index.html",
-  "./fonts.css?v=20260913-desktop-canvas-2",
+  "./fonts.css?v=20260913-android-1",
   "./assets/fonts/etihad-altis-book.woff",
   "./assets/fonts/etihad-altis-bold.woff",
-  "./mobile.css?v=20260913-desktop-canvas-2",
-  "./airline.css?v=20260913-desktop-canvas-2",
-  "./script.js?v=20260913-desktop-canvas-2",
-  "./navigation.js?v=20260913-desktop-canvas-2",
-  "./manifest.webmanifest?v=20260913-desktop-canvas-2",
+  "./mobile.css?v=20260913-android-1",
+  "./airline.css?v=20260913-android-1",
+  "./script.js?v=20260913-android-1",
+  "./navigation.js?v=20260913-android-1",
+  "./manifest.webmanifest?v=20260913-android-1",
   "./assets/ku-bus-logo.png",
   "./assets/ku-bus-wordmark.png",
   "./assets/app-icon-180.png",
@@ -70,6 +70,11 @@ self.addEventListener("fetch", (event) => {
 
   const requestUrl = new URL(request.url);
   const sameOrigin = requestUrl.origin === self.location.origin;
+
+  // APKs are explicit downloads, never large background/offline cache entries.
+  if (requestUrl.pathname.endsWith(".apk") || requestUrl.pathname.endsWith(".apk.sha256")) {
+    return;
+  }
 
   if (!sameOrigin) {
     event.respondWith(fetch(request));

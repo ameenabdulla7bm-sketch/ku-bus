@@ -18,7 +18,9 @@ Visit <http://127.0.0.1:4173>. There is no build step or package installation. D
 - **Schedule:** The selected route's timetable, with Mon–Thu and Friday filters and special pickup notes preserved. Choose Change route to return to Home.
 - **Announcements:** The supplied Fall 2026 notice, its effective date, all seven pickup/drop-off points, the academic-class request policy, a link to the fourth-update PDF, and an expandable original notice image. The Helpdesk name is plain text because no target URL was supplied.
 
-The floating dark navigation pill keeps all three labels—Home, Schedule, and Announcements—with a bright destination-coloured sliding highlight. It stays in the page flow on Home to reserve space below the ticket, and remains fixed with content clearance on the other screens. Navigation preserves the route and timetable filter. Hash links support direct navigation and browser history: `#home`, `#schedule`, and `#announcements`. The older `#trip-panel` shortcut still opens Schedule.
+- **Download:** An Android APK download for KU Bus v1.0 (Android 8.0 or later), installation steps, and iPhone Add to Home Screen guidance. The APK is served from `downloads/ku-bus.apk`.
+
+The floating dark navigation pill keeps all four labels—Home, Schedule, Announcements, and Download—with a bright destination-coloured sliding highlight. It stays in the page flow on Home to reserve space below the ticket, and remains fixed with content clearance on the other screens. Navigation preserves the route and timetable filter. Hash links support direct navigation and browser history: `#home`, `#schedule`, `#announcements`, and `#download`. The older `#trip-panel` shortcut still opens Schedule.
 
 ## Design and behaviour
 
@@ -38,8 +40,12 @@ The supplied KU bus logo is preserved unchanged in `assets/ku-bus-logo.png`. The
 
 The large bus cutout is cropped in CSS to show its front half, with the rear continuing off the right edge. Its viewport-based size stays independent of route text and restriction notes, with a flexible spacer preserving the phone layout. The original proportions and lettering are preserved; see `bus-image-notes.md` for its creation details.
 
-`fonts.css` loads Etihad Altis. `mobile.css` provides the responsive layout, with `airline.css` adding the dark campus theme, typography and white ticket treatment. `script.js` contains timetable and route logic, and `navigation.js` controls the three views. The older `styles.css` is retained as a reference file and is not loaded by the app.
+`fonts.css` loads Etihad Altis. `mobile.css` provides the responsive layout, with `airline.css` adding the dark campus theme, typography and white ticket treatment. `script.js` contains timetable and route logic, and `navigation.js` controls the four views. The older `styles.css` is retained as a reference file and is not loaded by the app.
 
 The dark boarding-pass layout was checked at 320×568, 375×667, 390×844, 1024×600 and 1440×900. Text colours were checked for contrast across all six campus themes. The fourth update was independently checked against all seven PDF pages. The six-stop matrix contains 429 rows, with KURH and Lulu restrictions applied separately. Focused UI/data checks and 12,600 next-departure scenarios covered the effective date, weekday restrictions, Friday unions, and weekend rollover. PDF and original-notice links were verified; the PDF copy is byte-for-byte identical to the supplied file. Six-button rows fit at 320px wide, with targets at least 44px wide and 48px high; phone navigation targets are at least 52px high. Dynamic viewport units and safe-area insets accommodate mobile browser chrome. Very short landscape windows and enlarged text can scroll instead of clipping controls. Reduced-motion, reduced-transparency, and forced-colour preferences are supported.
 
 The timetable is the supplied Fall 2026 fourth update, not a live transport feed. The source PDF is in `documents/fall-2026-shuttle-schedule-fourth-update.pdf`; interpretation notes are in `schedule-notes.md`. Both the PDF and original notice image are cached for offline use. Offline caching is limited to this app's own caches.
+
+## Android app
+
+The Download tab links to `downloads/ku-bus.apk` (v1.0, Android 8+). The app opens the live GitHub Pages site and falls back to a dated bundled copy when the site cannot load. APK files are excluded from service-worker caching. Publishing the website requires committing and pushing the `downloads` folder along with the updated HTML, scripts, and styles. The Android source and rebuild instructions are in `android/`; private signing keys are stored outside the repository.
