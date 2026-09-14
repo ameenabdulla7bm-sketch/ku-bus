@@ -10,13 +10,16 @@ const locations = {
 const locationIds = Object.keys(locations);
 const boysHostels = new Set(["rawda"]);
 const girlsHostels = new Set(["kurh", "lulu"]);
-const row = (time, name, detail, tag = "Mon-Thu") => [time, name, detail, tag];
+const row = (time, name, detail, tag = "Mon-Thu", revision) => revision
+  ? [time, name, detail, tag, revision]
+  : [time, name, detail, tag];
 const rows = (times, name, detail, tag = "Mon-Thu") => times.map((time) => row(time, name, detail, tag));
 const group = (title, scheduleRows) => ({ title, rows: scheduleRows });
 const key = (pickup, destination) => `${pickup}->${destination}`;
 const uaeOffsetMs = 4 * 60 * 60 * 1000;
-// Original Fall service start. The fifth revision does not specify a new start date.
+// Original Fall service start; the sixth-update changes start separately below.
 const scheduleEffectiveUaeMs = Date.UTC(2026, 8, 7);
+const sixthUpdateEffectiveUaeMs = Date.UTC(2026, 8, 15);
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const scheduleDays = {
   "Mon-Thu": [1, 2, 3, 4],
@@ -171,7 +174,9 @@ const mainToSanRows = [
   row("10:20 AM", mainToSanRouteName, "Direct service"),
   row("10:30 AM", mainToSanRouteName, "Direct service", "Mon/Wed"),
   row("11:00 AM", mainToSanRouteName, "Direct service"),
-  row("11:35 AM", mainToSanRouteName, "Direct service", "Mon/Wed"),
+  row("11:35 AM", mainToSanRouteName, "Direct service", "Mon-Thu", {
+    effectiveUaeMs: sixthUpdateEffectiveUaeMs, previousTag: "Mon/Wed"
+  }),
   row("11:50 AM", mainToSanRouteName, "Direct service", "Mon/Wed"),
   row("12:00 PM", mainToSanRouteName, "Direct service"),
   row("12:30 PM", mainToSanRouteName, "Direct service"),
@@ -209,7 +214,9 @@ const sanToMainRows = [
   row("12:00 PM", sanToMainRouteName, "Direct service"),
   row("12:30 PM", sanToMainRouteName, "Direct service"),
   row("12:45 PM", sanToMainRouteName, "Direct service"),
-  row("12:50 PM", sanToMainRouteName, "Direct service", "Tue/Thu"),
+  row("12:50 PM", sanToMainRouteName, "Direct service", "Mon-Thu", {
+    effectiveUaeMs: sixthUpdateEffectiveUaeMs, previousTag: "Tue/Thu"
+  }),
   row("1:00 PM", sanToMainRouteName, "Direct service"),
   row("1:15 PM", sanToMainRouteName, "Direct service", "Tue/Thu"),
   row("1:20 PM", sanToMainRouteName, "Direct service", "Mon/Wed"),
@@ -482,6 +489,10 @@ function getDaysForTag(tag) {
   return scheduleDays[tag] || scheduleDays["Mon-Thu"];
 }
 
+function getEffectiveDayTag(tag, revision, uaeMs) {
+  return revision && uaeMs < revision.effectiveUaeMs ? revision.previousTag : tag;
+}
+
 function getUaeNowParts(now = new Date()) {
   const nowUaeMs = now.getTime() + uaeOffsetMs;
   const uaeDate = new Date(nowUaeMs);
@@ -517,7 +528,8 @@ function getNextDeparture(rows, now = new Date()) {
       const dayStartMs = Date.UTC(baseYear, baseMonth, baseDate + dayOffset);
       const dayNumber = new Date(dayStartMs).getUTCDay();
 
-      if (!getDaysForTag(scheduleRow[3]).includes(dayNumber)) {
+      const dayTag = getEffectiveDayTag(scheduleRow[3], scheduleRow[4], dayStartMs);
+      if (!getDaysForTag(dayTag).includes(dayNumber)) {
         continue;
       }
 
@@ -531,7 +543,7 @@ function getNextDeparture(rows, now = new Date()) {
 
       if (departureMs >= searchStartMs && (!nextDeparture || departureMs < nextDeparture.departureMs)) {
         nextDeparture = {
-          row: scheduleRow,
+          row: scheduleRow[3] === dayTag ? scheduleRow : [scheduleRow[0], scheduleRow[1], scheduleRow[2], dayTag, scheduleRow[4]],
           departureMs,
           countdownMs: departureMs - nowUaeMs,
           dayOffset: Math.round((dayStartMs - todayStartMs) / 86400000),
@@ -544,7 +556,7 @@ function getNextDeparture(rows, now = new Date()) {
   return nextDeparture;
 }
 
-function getRouteStatus(timeText, dayTag, now = new Date()) {
+function getRouteStatus(timeText, dayTag, now = new Date(), revision) {
   const departure = parseDepartureTime(timeText);
 
   if (!departure) {
@@ -557,7 +569,7 @@ function getRouteStatus(timeText, dayTag, now = new Date()) {
     return "not-today";
   }
 
-  if (!getDaysForTag(dayTag).includes(uaeNow.day)) {
+  if (!getDaysForTag(getEffectiveDayTag(dayTag, revision, uaeNow.nowUaeMs)).includes(uaeNow.day)) {
     return "not-today";
   }
 
@@ -709,6 +721,7 @@ function renderSchedule(groups) {
         item.className = "schedule-row";
         item.dataset.time = time;
         item.dataset.dayTag = state;
+        item.scheduleRevision = scheduleRow[4];
         item.dataset.restricted = String(isRestricted);
         item.dataset.specialPickup = String(isRestricted);
         item.innerHTML = `
@@ -742,7 +755,15 @@ function updateScheduleStatuses() {
   };
   const now = new Date();
   document.querySelectorAll(".schedule-row").forEach((scheduleRow) => {
-    const status = getRouteStatus(scheduleRow.dataset.time, scheduleRow.dataset.dayTag, now);
+    const revision = scheduleRow.scheduleRevision;
+    const status = getRouteStatus(scheduleRow.dataset.time, scheduleRow.dataset.dayTag, now, revision);
+    if (revision) {
+      const dayPill = scheduleRow.querySelector(".schedule-pill");
+      if (dayPill) {
+        dayPill.textContent = getEffectiveDayTag(scheduleRow.dataset.dayTag, revision, getUaeNowParts(now).nowUaeMs);
+        dayPill.title = `${revision.previousTag} until 14 September; Mon-Thu from 15 September 2026`;
+      }
+    }
     const statusPill = scheduleRow.querySelector(".status-pill");
 
     if (!statusPill) {

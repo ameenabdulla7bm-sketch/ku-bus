@@ -62,7 +62,7 @@ public final class MainActivity extends Activity {
         offlineBar.setPadding(dp(12), 0, dp(8), 0);
         offlineBar.setBackgroundColor(Color.rgb(61, 40, 49));
         TextView offlineText = new TextView(this);
-        offlineText.setText("Offline · Fall 2026 update 5");
+        offlineText.setText("Offline · Fall 2026 update 6");
         offlineText.setTextColor(Color.WHITE);
         offlineText.setTextSize(12);
         offlineBar.addView(offlineText, new LinearLayout.LayoutParams(0, -2, 1));
@@ -91,7 +91,7 @@ public final class MainActivity extends Activity {
         settings.setSafeBrowsingEnabled(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(false);
         settings.setSupportMultipleWindows(false);
-        settings.setUserAgentString(settings.getUserAgentString() + " KUBusAndroid/1.2");
+        settings.setUserAgentString(settings.getUserAgentString() + " KUBusAndroid/1.3");
         CookieManager.getInstance().setAcceptThirdPartyCookies(web, false);
         web.setWebChromeClient(new WebChromeClient() {
             @Override public void onProgressChanged(WebView view, int value) {

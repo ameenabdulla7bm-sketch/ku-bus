@@ -1,6 +1,6 @@
 # KU Shuttle
 
-A responsive Khalifa University shuttle app inspired by the supplied airline-app reference, using the supplied fifth-update Fall 2026 timetable.
+A responsive Khalifa University shuttle app inspired by the supplied airline-app reference, using the supplied sixth-update Fall 2026 timetable.
 
 ## Run
 
@@ -16,9 +16,9 @@ Visit <http://127.0.0.1:4173>. There is no build step or package installation. D
 
 - **Home:** The supplied KU bus logo and UAE clock, selected route, white departure pass, cropped KU bus, and six From and To options with a swap control. A vertical perforation separates the departure time from a plain day/hour/minute timer.
 - **Schedule:** The selected route's timetable, with Mon–Thu and Friday filters and special pickup notes preserved. Choose Change route to return to Home.
-- **Announcements:** The fifth-update changes, all seven pickup/drop-off points from the earlier notice, the academic-class request policy, a link to the fifth-update PDF, and an expandable original notice image. The Helpdesk name is plain text because no target URL was supplied.
+- **Announcements:** The sixth-update changes effective 15 September 2026, the complete PDF, a working Student Transportation Service Helpdesk link, and pickup-point guidance from the earlier notice.
 
-- **Download:** An Android APK download for KU Bus v1.2 (Android 8.0 or later), installation steps, and iPhone Add to Home Screen guidance. The APK is served from `downloads/ku-bus.apk?v=1.2`.
+- **Download:** An Android APK download for KU Bus v1.3 (Android 8.0 or later), installation steps, and iPhone Add to Home Screen guidance. The APK is served from `downloads/ku-bus.apk?v=1.3`.
 
 The floating dark navigation pill keeps all four labels—Home, Schedule, Announcements, and Download—with a bright destination-coloured sliding highlight. It stays in the page flow on Home to reserve space below the ticket, and remains fixed with content clearance on the other screens. Navigation preserves the route and timetable filter. Hash links support direct navigation and browser history: `#home`, `#schedule`, `#announcements`, and `#download`. The older `#trip-panel` shortcut still opens Schedule.
 
@@ -30,7 +30,7 @@ Desktop uses an edge-to-edge campus-tinted canvas, with the brand on the left an
 
 Phones retain the one-screen layout: departure pass, bus, then From/To controls, with a flexible spacer absorbing spare height and the desktop route caption hidden. Small typography refinements, subtle borders, countdown dividers and inset selected ticks preserve the compact layout. The countdown's day caption and Days/Hrs/Mins labels remain visible on short phones, along with residence restriction notes. The Departure label hides when a restriction needs the space.
 
-Eighteen direct routes are included, with 430 timetable rows. The Wednesday-only 12:40 PM Main-to-SAN departure and residence-specific trips follow the fifth update. Unavailable destinations are disabled, and the selected destination is normalized when changing pickup location. The next bus always follows the actual upcoming timetable departure; timetable filtering does not change the live countdown. KURH and Umm Lulu have separate buttons and timetables; residence-specific departures appear only for the relevant location. Generic schedule details give way to the residence restriction beside the next departure. The route title, departure time and day/hour/minute countdown update with the selected route.
+Eighteen direct routes are included, with 430 timetable rows. The Wednesday-only 12:40 PM Main-to-SAN departure and residence-specific trips follow the sixth update. Unavailable destinations are disabled, and the selected destination is normalized when changing pickup location. The next bus always follows the actual upcoming timetable departure; timetable filtering does not change the live countdown. KURH and Umm Lulu have separate buttons and timetables; residence-specific departures appear only for the relevant location. Generic schedule details give way to the residence restriction beside the next departure. The route title, departure time and day/hour/minute countdown update with the selected route.
 
 The dark background tint and faint campus illustration follow the pickup location, independently of destination accents. All six locations—Main, SAN, Masdar, Rawda, KURH, and Umm Lulu—use their user-supplied building illustrations, blended as pale architectural detail behind the bus. Tint and illustrations crossfade; campus buttons transition smoothly, the swap icon rotates on valid swaps, and the bus slides in once per page load. Reduced motion skips the bus and swap animations and removes CSS transitions.
 
@@ -44,11 +44,11 @@ The large bus cutout is cropped in CSS to show its front half, with the rear con
 
 The dark boarding-pass layout was checked at 320×568, 375×667, 390×844, 1024×600 and 1440×900. Text colours were checked for contrast across all six campus themes. The fifth update was independently checked against all seven PDF pages. The six-stop matrix contains 430 rows, with KURH and Lulu restrictions applied separately. Focused UI/data checks and 12,600 next-departure scenarios covered the effective date, weekday restrictions, Friday unions, and weekend rollover. PDF and original-notice links were verified; the PDF copy is byte-for-byte identical to the supplied file. Six-button rows fit at 320px wide, with targets at least 44px wide and 48px high; phone navigation targets are at least 52px high. Dynamic viewport units and safe-area insets accommodate mobile browser chrome. Very short landscape windows and enlarged text can scroll instead of clipping controls. Reduced-motion, reduced-transparency, and forced-colour preferences are supported.
 
-The timetable is the supplied Fall 2026 fifth update, not a live transport feed. The source PDF is in `documents/fall-2026-shuttle-schedule-fifth-update.pdf`; interpretation notes are in `schedule-notes.md`. Both the PDF and original notice image are cached for offline use. Offline caching is limited to this app's own caches.
+The timetable is the supplied Fall 2026 sixth update, not a live transport feed. The source PDF is in `documents/fall-2026-shuttle-schedule-sixth-update.pdf`; interpretation notes are in `schedule-notes.md`. Both the PDF and original notice image are cached for offline use. Offline caching is limited to this app's own caches.
 
 ## Android app
 
-The Download tab links to `downloads/ku-bus.apk?v=1.2` (v1.2, Android 8+). Version 1.1 requests a fresh live page on launch and after at least one minute in the background, preserving the current tab. It falls back to its bundled copy when the site cannot load. Install this APK over 1.0 once to receive the native refresh fix; it uses the same signing key and a higher version code. APK files are excluded from service-worker caching. Publishing the website requires committing and pushing the `downloads` folder along with the updated HTML, scripts, and styles. The Android source and rebuild instructions are in `android/`; private signing keys are stored outside the repository.
+The Download tab links to `downloads/ku-bus.apk?v=1.3` (v1.3, Android 8+). Version 1.1 requests a fresh live page on launch and after at least one minute in the background, preserving the current tab. It falls back to its bundled copy when the site cannot load. Install this APK over earlier versions to receive the sixth-update offline timetable; it uses the same signing key and a higher version code. APK files are excluded from service-worker caching. Publishing the website requires committing and pushing the `downloads` folder along with the updated HTML, scripts, and styles. The Android source and rebuild instructions are in `android/`; private signing keys are stored outside the repository.
 
 ## Automatic updates and iPhone installation
 
@@ -65,7 +65,7 @@ node tests/sw-regression.mjs
 node tests/registration-regression.mjs
 ```
 
-All 18 cache checks passed, alongside the complete 430-row timetable audit and 4,024 departure/countdown regression boundaries. A browser test also verified migration from the prior cache-first worker, preservation of query/hash, and a subsequent update retaining the selected Masdar → Main route. Android 1.2 includes this updated site as its offline copy. Future website updates appear online; refreshing the bundled offline copy requires a new APK.
+All 18 cache checks passed, alongside the complete 430-row timetable audit and 4,024 departure/countdown regression boundaries. A browser test also verified migration from the prior cache-first worker, preservation of query/hash, and a subsequent update retaining the selected Masdar → Main route. Android 1.3 includes the sixth-update site as its offline copy. Future website updates appear online; refreshing the bundled offline copy requires a new APK.
 
 ## Fifth-update release
 
@@ -74,3 +74,11 @@ Compared with update four, Main → SAN at 16:25 and 17:45 now run Monday–Thur
 ## Schedule status fix (14 September 2026)
 
 Badges describe today in UAE time: upcoming applicable departures are green Scheduled, passed applicable departures are red Departed, and services that do not run today are neutral Not today. Monday no longer labels Tuesday/Thursday-only rows as upcoming. The exact departure instant stays Scheduled, matching the countdown, and changes to Departed immediately afterwards. Android 1.2 includes this fix in its offline copy. The focused regression suite covers 125 time/day cases and seven repeated badge transitions.
+
+## Sixth-update release
+
+From Tuesday, 15 September 2026, Main → SAN at 11:35 AM changes from Monday/Wednesday to Monday–Thursday, and SAN → Main at 12:50 PM changes from Tuesday/Thursday to Monday–Thursday. Page 3 explicitly places these services under Monday–Thursday; no Friday or weekend trips are added. The effective date is provided by the accompanying university announcement. All other fifth-update times are unchanged.
+
+The schedule retains earlier operating days before that date. Countdown searches evaluate the rules for each candidate departure date, and status/day badges switch at UAE midnight even if the page stays open. The separate Friday timetable and red Departed / green Scheduled / neutral Not today status rules remain in place.
+
+Android 1.3 (versionCode 4) bundles the sixth-update PDF, announcement and timetable, using the existing release key. Cache release `20260914-sixth-1` refreshes website and iPhone Home Screen assets after deployment. The Android offline copy requires installing the new APK. See `android/VERIFICATION.md` for current release checks. Earlier release sections above describe historical verification.

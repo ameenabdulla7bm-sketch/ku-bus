@@ -35,13 +35,13 @@ vm.runInContext([
   source.slice(0, dataEnd),
   source.slice(helpersStart, helpersEnd),
   source.slice(badgesStart, badgesEnd),
-  'globalThis.api = { tripSchedules, getAllRows, getRouteStatus, getNextDeparture, updateScheduleStatuses };'
+  'globalThis.api = { tripSchedules, getAllRows, getRouteStatus, getNextDeparture, getEffectiveDayTag, updateScheduleStatuses };'
 ].join('\n'), context, { filename: 'script-status-under-test.js' });
 const app = context.api;
 const at = date => new Date(date);
 let statusChecks = 0;
-function expectStatus(time, tag, now, expected) {
-  assert.equal(app.getRouteStatus(time, tag, at(now)), expected, `${time} ${tag} at ${now}`);
+function expectStatus(time, tag, now, expected, revision) {
+  assert.equal(app.getRouteStatus(time, tag, at(now), revision), expected, `${time} ${tag} at ${now}`);
   statusChecks += 1;
 }
 
@@ -58,8 +58,10 @@ for (const [time, tag, expected] of [
   ['2:00 PM', 'Mon-Thu', 'scheduled'],
   ['1:15 PM', 'Friday', 'not-today']
 ]) {
-  assert.ok(sanMainRows.some(row => row[0] === time && row[3] === tag), `${time} ${tag} exists in SAN → MAIN`);
-  expectStatus(time, tag, '2026-09-14T13:56:00+04:00', expected);
+  const row = sanMainRows.find(row => row[0] === time && (row[3] === 'Friday') === (tag === 'Friday'));
+  assert.ok(row, `${time} ${tag} exists in SAN → MAIN`);
+  assert.equal(app.getEffectiveDayTag(row[3], row[4], Date.UTC(2026, 8, 14, 13, 56)), tag, 'Monday screenshot keeps the fifth-update day label');
+  expectStatus(row[0], row[3], '2026-09-14T13:56:00+04:00', expected, row[4]);
 }
 
 // Explicit calendar independent of production getDaysForTag, covering every
@@ -104,7 +106,7 @@ const nextSecond = new Date(exact.getTime() + 1000);
 assert.ok(app.getNextDeparture(oneTrip, nextSecond).countdownMs > 0);
 expectStatus('11:45 AM', 'Tue/Thu', nextSecond.toISOString(), 'departed');
 
-function makeBadgeRow(time, dayTag) {
+function makeBadgeRow(time, dayTag, revision) {
   const classes = new Set(['status-pill', 'is-scheduled']);
   const attributes = new Map();
   const badge = {
@@ -112,11 +114,17 @@ function makeBadgeRow(time, dayTag) {
     classList: { toggle(name, enabled) { if (enabled) classes.add(name); else classes.delete(name); } },
     setAttribute(name, value) { attributes.set(name, value); }
   };
+  const dayBadge = { textContent: dayTag, title: '' };
   const row = {
     dataset: { time, dayTag },
-    querySelector(selector) { assert.equal(selector, '.status-pill'); return badge; }
+    scheduleRevision: revision,
+    querySelector(selector) {
+      if (selector === '.schedule-pill') return dayBadge;
+      assert.equal(selector, '.status-pill');
+      return badge;
+    }
   };
-  return { row, badge, classes, attributes };
+  return { row, badge, dayBadge, classes, attributes };
 }
 const rendered = makeBadgeRow('11:45 AM', 'Tue/Thu');
 renderedRows.push(rendered.row, { dataset: { time: '8:00 AM', dayTag: 'Mon-Thu' }, querySelector: () => null });
@@ -140,4 +148,56 @@ for (const [now, state, label] of [
   if (state === 'scheduled') assert.match(accessible, /scheduled/i);
 }
 
-console.log(`PASS: ${statusChecks} status checks, the Monday SAN → MAIN regression, UAE midnight/service boundaries, and 7 live badge transitions.`);
+// Exercise the two real revised rows across both weeks. Expectations come
+// from the old/new source days, not production getEffectiveDayTag.
+const revisions = [
+  { route: 'main->san', time: '11:35 AM', clock: '11:35', previousTag: 'Mon/Wed', previousDays: [1, 3] },
+  { route: 'san->main', time: '12:50 PM', clock: '12:50', previousTag: 'Tue/Thu', previousDays: [2, 4] }
+].map(expected => {
+  const sourceRow = app.getAllRows(app.tripSchedules[expected.route]).find(row => row[0] === expected.time && row[4]);
+  assert.ok(sourceRow, `${expected.route} ${expected.time} revision exists`);
+  assert.equal(sourceRow[3], 'Mon-Thu');
+  assert.equal(sourceRow[4].previousTag, expected.previousTag);
+  assert.equal(sourceRow[4].effectiveUaeMs, Date.UTC(2026, 8, 15));
+  return { ...expected, sourceRow };
+});
+for (const revision of revisions) {
+  const [time, , , tag, metadata] = revision.sourceRow;
+  for (let date = 7; date <= 20; date += 1) {
+    const day = (date - 7 + 1) % 7;
+    const operatingDays = date < 15 ? revision.previousDays : [1, 2, 3, 4];
+    const exact = Date.parse(`2026-09-${String(date).padStart(2, '0')}T${revision.clock}:00+04:00`);
+    for (const delta of [-1000, 0, 1000]) {
+      const expected = operatingDays.includes(day) ? (delta <= 0 ? 'scheduled' : 'departed') : 'not-today';
+      expectStatus(time, tag, new Date(exact + delta).toISOString(), expected, metadata);
+    }
+  }
+}
+
+// An already-open timetable must update the day pills and statuses as UAE
+// midnight crosses the effective date; rebuilding the DOM must not be needed.
+renderedRows.length = 0;
+const revisedBadges = revisions.map(({ sourceRow }) => makeBadgeRow(sourceRow[0], sourceRow[3], sourceRow[4]));
+renderedRows.push(...revisedBadges.map(entry => entry.row));
+let revisionBadgeChecks = 0;
+for (const [instant, dayLabels, states] of [
+  ['2026-09-14T19:59:59Z', ['Mon/Wed', 'Tue/Thu'], ['departed', 'not-today']],
+  ['2026-09-14T20:00:00Z', ['Mon-Thu', 'Mon-Thu'], ['scheduled', 'scheduled']],
+  ['2026-09-16T08:49:59Z', ['Mon-Thu', 'Mon-Thu'], ['departed', 'scheduled']],
+  ['2026-09-16T08:50:00Z', ['Mon-Thu', 'Mon-Thu'], ['departed', 'scheduled']],
+  ['2026-09-16T08:50:01Z', ['Mon-Thu', 'Mon-Thu'], ['departed', 'departed']],
+  ['2026-09-18T08:00:00Z', ['Mon-Thu', 'Mon-Thu'], ['not-today', 'not-today']],
+  ['2026-09-19T08:00:00Z', ['Mon-Thu', 'Mon-Thu'], ['not-today', 'not-today']]
+]) {
+  clock = Date.parse(instant);
+  app.updateScheduleStatuses();
+  revisedBadges.forEach((entry, index) => {
+    assert.equal(entry.dayBadge.textContent, dayLabels[index], `day badge after live update at ${instant}`);
+    assert.match(entry.dayBadge.title, /15 September 2026/, 'effective date remains discoverable');
+    assert.equal(entry.badge.textContent, { scheduled: 'Scheduled', departed: 'Departed', 'not-today': 'Not today' }[states[index]]);
+    assert.deepEqual([...entry.classes].sort(), ['status-pill', `is-${states[index]}`].sort());
+    revisionBadgeChecks += 1;
+  });
+}
+
+console.log(`PASS: ${statusChecks} status checks, the Monday SAN → MAIN regression, UAE midnight/service boundaries, 7 live status transitions, and ${revisionBadgeChecks} effective-date day/status badge checks.`);

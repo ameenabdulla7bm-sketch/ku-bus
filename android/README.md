@@ -1,16 +1,16 @@
 # KU Bus Android
 
-Version 1.2 · package `com.kubus.shuttle` · Android 8.0 (API 26) or later.
+Version 1.3 · package `com.kubus.shuttle` · Android 8.0 (API 26) or later.
 
 This small native Android app opens https://ameenabdulla7bm-sketch.github.io/ku-bus/ in a WebView. Version 1.1 requests a fresh page on launch and after at least one minute in the background. Each request uses a unique URL and revalidation headers to avoid an old cached page; the current navigation tab is preserved. The Home, Schedule, Announcements, and Download views come from the website.
 
-If the site cannot load, the app opens its bundled copy and displays an Offline copy banner identifying the fifth Fall 2026 schedule and a Retry online action. The bundled timetable does not update itself; publish a new APK when refreshing that fallback. The online and bundled pages have separate route-selection storage.
+If the site cannot load, the app opens its bundled copy and displays an Offline copy banner identifying the sixth Fall 2026 schedule and a Retry online action. The bundled timetable does not update itself; publish a new APK when refreshing that fallback. The online and bundled pages have separate route-selection storage.
 
-Install version 1.2 over version 1.0 or 1.1 to receive the corrected schedule-status badges and the native refresh behavior. It uses the same package and release signing key, with versionCode 3. Future website changes load from the live site; a new APK is needed only for native changes or a new bundled offline copy.
+Install version 1.3 over versions 1.0–1.2 to receive the sixth-update timetable and corrected schedule-status badges and the native refresh behavior. It uses the same package and release signing key, with versionCode 4. Future website changes load from the live site; a new APK is needed only for native changes or a new bundled offline copy.
 
 The APK supports all CPU architectures: it contains Java/Dex and public website assets, with no native libraries. The only Android permission is Internet. It does not request location, contacts, storage, notification, or package-install permissions. PDF and APK links open in the user's browser. External links stay outside the app. File access, content-provider access, mixed HTTP content, and JavaScript-to-native bridges are disabled. Android's normal TLS validation and Safe Browsing remain enabled.
 
-The 1.2 offline bundle includes the fifth Fall 2026 schedule and its original PDF. It replaces the fourth-update fallback from 1.0.
+The 1.3 offline bundle includes the sixth Fall 2026 schedule and its original PDF. It replaces the fourth-update fallback from 1.0.
 
 ## Build
 
@@ -39,4 +39,4 @@ The public site includes only the signed APK and its SHA-256 checksum. The APK d
 
 References: [Android WebView](https://developer.android.com/develop/ui/views/layout/webapps/webview), [local web content](https://developer.android.com/develop/ui/views/layout/webapps/load-local-content), [APK signing](https://developer.android.com/tools/apksigner), [system bar insets](https://developer.android.com/develop/ui/views/layout/edge-to-edge).
 
-Version 1.2 also fixes the offline timetable status badges: Scheduled (green) and Departed (red) apply only to today in UAE time; other service days show Not today (neutral). The fifth-update departure times are unchanged.
+Version 1.3 also fixes the offline timetable status badges: Scheduled (green) and Departed (red) apply only to today in UAE time; other service days show Not today (neutral). The sixth update changes Main → SAN at 11:35 AM and SAN → Main at 12:50 PM to Monday–Thursday from 15 September 2026; earlier dates retain the previous restrictions. Friday and weekend service is unchanged.

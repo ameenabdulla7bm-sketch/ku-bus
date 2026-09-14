@@ -1,0 +1,2271 @@
+{
+  "source": "6th Update_Daily Shuttle Service Bus Schedule_ Fall 2026.pdf",
+  "effective": "2026-09-15",
+  "effective_evidence": "The user-supplied sixth-update announcement states Tuesday, 15 September 2026. Independent comparison of all seven PDF pages confirmed only the two operating-day changes below.",
+  "notes": [
+    "Transcribed independently from all seven source pages.",
+    "Generic hostel rows apply to all three listed residences. Named source exceptions are split among Rawda, KURH, and Umm Lulu.",
+    "Friday Main/SAN routes are deduplicated unions of the two corresponding page-7 table columns.",
+    "Sixth update: Main to SAN 11:35 changes Mon/Wed to Mon-Thu; SAN to Main 12:50 changes Tue/Thu to Mon-Thu. All remaining fifth-update rows are unchanged."
+  ],
+  "routes": {
+    "main->san": {
+      "weekday": [
+        {
+          "time": "08:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "08:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:30",
+          "day": "Mon/Wed",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:50",
+          "day": "Mon/Wed",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:40",
+          "day": "Wednesday",
+          "restriction": null
+        },
+        {
+          "time": "12:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Tue/Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:20",
+          "day": "Mon/Wed",
+          "restriction": null
+        },
+        {
+          "time": "13:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:55",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:25",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:55",
+          "day": "Tue/Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:15",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "san->main": {
+      "weekday": [
+        {
+          "time": "08:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:45",
+          "day": "Tue/Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:50",
+          "day": "Mon/Wed",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Tue/Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:20",
+          "day": "Mon/Wed",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "21:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:40",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "masdar->main": {
+      "weekday": [
+        {
+          "time": "07:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "08:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:15",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "main->masdar": {
+      "weekday": [
+        {
+          "time": "10:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:25",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "masdar->san": {
+      "weekday": [
+        {
+          "time": "07:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "08:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:15",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "san->masdar": {
+      "weekday": [
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:25",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "21:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:40",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "rawda->main": {
+      "weekday": [
+        {
+          "time": "08:20",
+          "day": "Mon-Thu",
+          "restriction": "Al Rawda only"
+        },
+        {
+          "time": "09:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:20",
+          "day": "Mon-Thu",
+          "restriction": "Al Rawda only"
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "kurh->main": {
+      "weekday": [
+        {
+          "time": "07:00",
+          "day": "Mon-Thu",
+          "restriction": "KURH only"
+        },
+        {
+          "time": "08:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "lulu->main": {
+      "weekday": [
+        {
+          "time": "08:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "rawda->san": {
+      "weekday": [
+        {
+          "time": "08:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "kurh->san": {
+      "weekday": [
+        {
+          "time": "08:00",
+          "day": "Mon-Thu",
+          "restriction": "KURH only"
+        },
+        {
+          "time": "08:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "lulu->san": {
+      "weekday": [
+        {
+          "time": "08:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "09:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "08:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "09:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "10:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "main->rawda": {
+      "weekday": [
+        {
+          "time": "10:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "main->kurh": {
+      "weekday": [
+        {
+          "time": "10:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "main->lulu": {
+      "weekday": [
+        {
+          "time": "10:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:50",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:35",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        }
+      ],
+      "friday": [
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "san->rawda": {
+      "weekday": [
+        {
+          "time": "10:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:55",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:10",
+          "day": "Mon-Thu",
+          "restriction": "Al Rawda and KURH only"
+        },
+        {
+          "time": "19:40",
+          "day": "Mon-Thu",
+          "restriction": "Al Rawda only"
+        },
+        {
+          "time": "20:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:45",
+          "day": "Mon-Thu",
+          "restriction": "Al Rawda and KURH only"
+        }
+      ],
+      "friday": [
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:40",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "san->kurh": {
+      "weekday": [
+        {
+          "time": "10:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:55",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:10",
+          "day": "Mon-Thu",
+          "restriction": "KURH only"
+        },
+        {
+          "time": "20:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "20:45",
+          "day": "Mon-Thu",
+          "restriction": "KURH only"
+        }
+      ],
+      "friday": [
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:40",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    },
+    "san->lulu": {
+      "weekday": [
+        {
+          "time": "10:05",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "10:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "11:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "12:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "13:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "14:40",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "15:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:10",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "16:30",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "17:45",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:00",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "18:55",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "19:20",
+          "day": "Mon-Thu",
+          "restriction": "Umm Lulu only"
+        },
+        {
+          "time": "20:20",
+          "day": "Mon-Thu",
+          "restriction": null
+        },
+        {
+          "time": "21:00",
+          "day": "Mon-Thu",
+          "restriction": "Umm Lulu only"
+        }
+      ],
+      "friday": [
+        {
+          "time": "11:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "13:15",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "14:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "16:40",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "17:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "18:30",
+          "day": "Friday",
+          "restriction": null
+        },
+        {
+          "time": "20:20",
+          "day": "Friday",
+          "restriction": null
+        }
+      ]
+    }
+  }
+}

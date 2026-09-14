@@ -1,12 +1,15 @@
 // Run with Node: node tests/schedule-regression.mjs
 // Expected times were independently transcribed and visually checked against
-// all seven pages of the fifth-update PDF, not generated from script.js.
+// all seven pages of the fifth-update PDF, then compared against the sixth
+// PDF. Only two service-day tags changed; the notice sets 15 September 2026.
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const source = await readFile(new URL('../script.js', import.meta.url), 'utf8');
-const fixture = JSON.parse(await readFile(new URL('./expected-fifth-schedule.json', import.meta.url), 'utf8'));
+const previousFixture = JSON.parse(await readFile(new URL('./expected-fifth-schedule.json', import.meta.url), 'utf8'));
+const fixture = JSON.parse(await readFile(new URL('./expected-sixth-schedule.json', import.meta.url), 'utf8'));
+const EFFECTIVE_DATE = '2026-09-15';
 const dataEnd = source.indexOf('\nconst elements = {');
 const helpersStart = source.indexOf('\nfunction getTrip() {');
 const helpersEnd = source.indexOf('\nfunction resetCountdownDisplay() {');
@@ -21,7 +24,7 @@ vm.runInContext([
   source.slice(0, dataEnd),
   source.slice(helpersStart, helpersEnd),
   source.slice(noteStart, noteEnd),
-  'globalThis.api = { locations, tripSchedules, getAllRows, getNextDeparture, getDaysForTag, getDepartureNote, getRouteStatus, isUnavailableRoute, getCountdownParts };'
+  'globalThis.api = { locations, tripSchedules, getAllRows, getNextDeparture, getDaysForTag, getEffectiveDayTag, getDepartureNote, getRouteStatus, isUnavailableRoute, getCountdownParts };'
 ].join('\n'), context, { filename: 'script-schedule-data.js' });
 const app = context.api;
 
@@ -41,6 +44,26 @@ function twentyFourHour(time) {
   return `${String(hour).padStart(2, '0')}:${match[2]}`;
 }
 function rowsFor(route) { return app.getAllRows(app.tripSchedules[route] || []); }
+
+// Independently constrain the complete source delta, including Friday service.
+const fixtureChanges = [];
+for (const [route, services] of Object.entries(previousFixture.routes)) {
+  for (const [service, rows] of Object.entries(services)) {
+    assert.equal(fixture.routes[route][service].length, rows.length);
+    rows.forEach((before, index) => {
+      const after = fixture.routes[route][service][index];
+      assert.equal(after.time, before.time, `${route}: no time changed`);
+      assert.equal(after.restriction, before.restriction, `${route}: no restriction changed`);
+      if (before.day !== after.day) fixtureChanges.push([route, service, before.time, before.day, after.day]);
+    });
+  }
+}
+assert.deepEqual(fixtureChanges, [
+  ['main->san', 'weekday', '11:35', 'Mon/Wed', 'Mon-Thu'],
+  ['san->main', 'weekday', '12:50', 'Tue/Thu', 'Mon-Thu']
+]);
+assert.equal(fixture.effective, EFFECTIVE_DATE);
+
 
 assert.deepEqual(Object.keys(app.locations), CAMPUS_IDS);
 assert.equal(Object.keys(fixture.routes).length, 18);
@@ -77,8 +100,26 @@ for (const [route, services] of Object.entries(fixture.routes)) {
     dailyMatrices += 1;
   }
 }
-assert.equal(checkedRows, 430, 'fifth-update total across all 18 routes');
+assert.equal(checkedRows, 430, 'sixth-update total across all 18 routes');
 assert.equal(checkedRestrictions, 11, 'all source restrictions remain represented');
+
+// Before the notice takes effect, every route still resolves to the fifth
+// timetable; from midnight onward it resolves to the sixth timetable.
+let effectiveRowChecks = 0;
+for (const [date, expectedFixture] of [['2026-09-14', previousFixture], [EFFECTIVE_DATE, fixture]]) {
+  const [year, month, day] = date.split('-').map(Number);
+  const uaeMs = Date.UTC(year, month - 1, day);
+  for (const [route, services] of Object.entries(expectedFixture.routes)) {
+    const actualRows = rowsFor(route);
+    for (const [service, expectedRows] of Object.entries(services)) {
+      const actual = actualRows.filter(row => (row[3] === 'Friday') === (service === 'friday'));
+      assert.deepEqual(plain(actual.map(row => ({ time: twentyFourHour(row[0]), day: app.getEffectiveDayTag(row[3], row[4], uaeMs) }))), expectedRows.map(({ time, day }) => ({ time, day })), `${route}: resolved timetable on ${date}`);
+      effectiveRowChecks += actual.length;
+    }
+  }
+}
+assert.equal(Object.values(app.tripSchedules).flatMap(app.getAllRows).filter(row => row[4]).length, 2, 'only the two changed rows carry revisions');
+
 
 for (const from of CAMPUS_IDS) {
   for (const to of CAMPUS_IDS) {
@@ -88,12 +129,14 @@ for (const from of CAMPUS_IDS) {
 
 // Build an independent calendar of actual instants from the audited PDF rows.
 // The production algorithm searches row-by-row; this oracle instead expands
-// two explicit weeks, sorts appointments, and chooses the first remaining one.
+// explicit dates spanning the revision, sorts appointments, and chooses the
+// first remaining one using the source fixture effective on each future day.
 function expectedCalendar(route) {
   const result = [];
-  const expectedRows = Object.values(fixture.routes[route]).flat();
-  for (let date = 14; date <= 28; date += 1) {
+  for (let date = 7; date <= 28; date += 1) {
     const dateText = `2026-09-${String(date).padStart(2, '0')}`;
+    const activeFixture = dateText < EFFECTIVE_DATE ? previousFixture : fixture;
+    const expectedRows = Object.values(activeFixture.routes[route]).flat();
     const day = new Date(`${dateText}T12:00:00+04:00`).getUTCDay();
     for (const row of expectedRows) {
       if (DAY_TAGS[row.day].includes(day)) {
@@ -165,9 +208,37 @@ for (const [route, now, expected] of [
   ['lulu->main', '2026-09-19T12:00:00', '2026-09-21T08:00:00']
 ]) assertNext(route, now, expected);
 
+// Concrete changed-row examples: old service days before the notice, new
+// service days afterward, and exact/+1 second consistency on each route.
+for (const [route, now, expected] of [
+  ['main->san', '2026-09-08T11:34:59', '2026-09-08T12:00:00'],
+  ['main->san', '2026-09-14T11:35:00', '2026-09-14T11:35:00'],
+  ['main->san', '2026-09-14T11:35:01', '2026-09-14T11:50:00'],
+  ['main->san', '2026-09-15T11:34:59', '2026-09-15T11:35:00'],
+  ['main->san', '2026-09-15T11:35:00', '2026-09-15T11:35:00'],
+  ['main->san', '2026-09-15T11:35:01', '2026-09-15T12:00:00'],
+  ['san->main', '2026-09-14T12:49:59', '2026-09-14T13:00:00'],
+  ['san->main', '2026-09-15T12:50:00', '2026-09-15T12:50:00'],
+  ['san->main', '2026-09-15T12:50:01', '2026-09-15T13:00:00'],
+  ['san->main', '2026-09-16T12:49:59', '2026-09-16T12:50:00'],
+  ['san->main', '2026-09-16T12:50:00', '2026-09-16T12:50:00'],
+  ['san->main', '2026-09-16T12:50:01', '2026-09-16T13:00:00']
+]) assertNext(route, now, expected);
+
+// A query made before midnight must apply the new rules to future dates.
+for (const [route, time, now, expectedDate] of [
+  ['main->san', '11:35 AM', '2026-09-14T23:59:59', '2026-09-15T11:35:00'],
+  ['san->main', '12:50 PM', '2026-09-14T23:59:59', '2026-09-15T12:50:00']
+]) {
+  const onlyChangedRow = rowsFor(route).filter(row => row[0] === time && row[4]);
+  const next = app.getNextDeparture(onlyChangedRow, new Date(`${now}+04:00`));
+  assert.equal(next.departureMs - 4 * 3600000, Date.parse(`${expectedDate}+04:00`));
+  assert.equal(next.row[3], 'Mon-Thu', 'next-trip label uses the departure date revision');
+}
+
 assert.equal(app.getNextDeparture([], new Date('2026-09-14T06:00:00+04:00')), null);
 assert.equal(app.getRouteStatus('4:25 PM', 'Mon-Thu', new Date('2026-09-15T16:25:01+04:00')), 'departed');
 assert.equal(app.getRouteStatus('12:40 PM', 'Wednesday', new Date('2026-09-17T12:41:00+04:00')), 'not-today');
 assert.deepEqual(plain(app.getCountdownParts(25 * 60 * 60 * 1000 + 2 * 60 * 1000)), { days: 1, hours: 1, minutes: 2, seconds: 0 });
 
-console.log(`PASS: ${checkedRows} independently audited rows across 18 routes, ${checkedRestrictions} restrictions, ${dailyMatrices} daily timetables, and ${boundaryChecks} next-departure/countdown boundary checks.`);
+console.log(`PASS: ${checkedRows} independently audited rows across 18 routes, ${checkedRestrictions} restrictions, ${dailyMatrices} daily timetables, ${effectiveRowChecks} before/after revision rows, and ${boundaryChecks} next-departure/countdown boundary checks.`);

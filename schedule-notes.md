@@ -1,13 +1,14 @@
-# Fifth-update timetable notes
+# Sixth-update timetable notes
 
-Source: the supplied `5th Update_Daily Shuttle Service Bus Schedule_ Fall 2026.pdf`, seven pages. The original bytes are bundled at `documents/fall-2026-shuttle-schedule-fifth-update.pdf`. The fifth PDF has no printed effective date. The original Fall service start (7 September 2026) remains the lower bound for countdown calculations; the website says this revision was added on 13 September, without claiming that is its service-effective date.
+Source: the supplied `6th Update_Daily Shuttle Service Bus Schedule_ Fall 2026.pdf`, seven pages, bundled unchanged at `documents/fall-2026-shuttle-schedule-sixth-update.pdf`. Its accompanying announcement sets the effective date to Tuesday, 15 September 2026. The original Fall service start remains 7 September 2026 for unchanged services.
 
-## Changes from the fourth update
+## Changes from the fifth update
 
-- Main to SAN at 16:25 now runs Monday through Thursday, replacing the earlier Monday/Wednesday restriction.
-- Main to SAN at 17:45 now runs Monday through Thursday, replacing the earlier Wednesday-only restriction.
-- SAN to Masdar adds a 16:20 departure Monday through Thursday.
-- All other times and restrictions match the supplied fifth PDF. Masdar to SAN at 18:45 remains present.
+- Main → SAN at 11:35 AM: Monday–Thursday, previously Monday/Wednesday.
+- SAN → Main at 12:50 PM: Monday–Thursday, previously Tuesday/Thursday.
+- The source page explicitly says Monday to Thursday. “Daily” in the notice does not add Friday, Saturday or Sunday services.
+- All other departure times, restrictions and Friday services are unchanged.
+- Each changed row retains its prior service days until 15 September 2026, 00:00 UAE time. Countdown candidates use the service days on the actual departure date; live badges and day labels update when the effective date passes.
 
 ## Route interpretation
 
@@ -15,13 +16,13 @@ Source: the supplied `5th Update_Daily Shuttle Service Bus Schedule_ Fall 2026.p
 - Unqualified residence departures apply to the residences in the table heading. Explicit residence names narrow that departure.
 - KURH and Lulu have separate timetables. KURH alone has 07:00 to Main and 08:00 to SAN. The 08:00 to Main serves KURH and Lulu. Rawda has its separately listed 08:20 and 10:20 Main departures.
 - SAN evening drop-offs follow the explicit Rawda, KURH, or Lulu destinations. KURH includes 19:10 and 20:45; Lulu includes 19:20 and 21:00. Shared times apply to both. No direct service between residences is inferred.
-- Main to SAN at 12:40 remains Wednesday-only. Other Monday/Wednesday and Tuesday/Thursday labels follow the PDF exactly. Unqualified weekday rows run Monday through Thursday.
+- Main to SAN at 12:40 remains Wednesday-only. Remaining Monday/Wednesday and Tuesday/Thursday labels follow the PDF exactly. Unqualified weekday rows run Monday through Thursday.
 - Both Friday tables explicitly name the other campus. Main-to-SAN and SAN-to-Main use the union of applicable incoming/outgoing times, deduplicated. Residence Friday routes use their respective single table columns.
 
 ## Validation
 
-All seven rendered PDF pages were visually checked. An independent transcription matches all 430 route/time/day entries across 18 direct routes: 302 weekday and 128 Friday entries. All 11 residence restriction notes match. Independent countdown checks covered 12,630 scenarios; the shipped regression suite covers 4,024 departure/countdown boundaries, 126 daily timetables and all 36 location pairs.
+The seven-page comparison found only the two operating-day changes on page 3. The complete timetable still contains 430 route/time/day rows across 18 routes (302 weekday and 128 Friday) and 11 residence restriction notes. The independent fifth fixture is retained to check dates before the sixth update.
 
-Run `node tests/schedule-regression.mjs` to compare production data with the independently transcribed fixture, including the three changed services, exact departure boundaries, weekday exceptions, Friday and weekend rollover, and separate KURH/Lulu rules.
+Run `node tests/schedule-regression.mjs` and `node tests/status-regression.mjs` for full timetable, countdown, operating-day and live badge regressions. Cache checks are in `tests/sw-regression.mjs` and `tests/registration-regression.mjs`.
 
-Announcements summarize the fifth-update changes and link to the current PDF. Pickup points and transport-request guidance remain from the earlier supplied notice, explicitly labelled as an earlier notice. No new policy or effective date is inferred. The Helpdesk remains plain text because no target URL was supplied.
+The announcement includes both changed services and the user-supplied Student Transportation Service Helpdesk URL. Pickup points and academic-class request guidance remain from the earlier supplied notice. Older PDFs are retained as historical files but active links and offline precaching use the sixth update.
