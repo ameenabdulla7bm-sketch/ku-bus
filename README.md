@@ -18,7 +18,7 @@ Visit <http://127.0.0.1:4173>. There is no build step or package installation. D
 - **Schedule:** The selected route's timetable, with Mon–Thu and Friday filters and special pickup notes preserved. Choose Change route to return to Home.
 - **Announcements:** The fifth-update changes, all seven pickup/drop-off points from the earlier notice, the academic-class request policy, a link to the fifth-update PDF, and an expandable original notice image. The Helpdesk name is plain text because no target URL was supplied.
 
-- **Download:** An Android APK download for KU Bus v1.1 (Android 8.0 or later), installation steps, and iPhone Add to Home Screen guidance. The APK is served from `downloads/ku-bus.apk?v=1.1`.
+- **Download:** An Android APK download for KU Bus v1.2 (Android 8.0 or later), installation steps, and iPhone Add to Home Screen guidance. The APK is served from `downloads/ku-bus.apk?v=1.2`.
 
 The floating dark navigation pill keeps all four labels—Home, Schedule, Announcements, and Download—with a bright destination-coloured sliding highlight. It stays in the page flow on Home to reserve space below the ticket, and remains fixed with content clearance on the other screens. Navigation preserves the route and timetable filter. Hash links support direct navigation and browser history: `#home`, `#schedule`, `#announcements`, and `#download`. The older `#trip-panel` shortcut still opens Schedule.
 
@@ -48,7 +48,7 @@ The timetable is the supplied Fall 2026 fifth update, not a live transport feed.
 
 ## Android app
 
-The Download tab links to `downloads/ku-bus.apk?v=1.1` (v1.1, Android 8+). Version 1.1 requests a fresh live page on launch and after at least one minute in the background, preserving the current tab. It falls back to its bundled copy when the site cannot load. Install this APK over 1.0 once to receive the native refresh fix; it uses the same signing key and a higher version code. APK files are excluded from service-worker caching. Publishing the website requires committing and pushing the `downloads` folder along with the updated HTML, scripts, and styles. The Android source and rebuild instructions are in `android/`; private signing keys are stored outside the repository.
+The Download tab links to `downloads/ku-bus.apk?v=1.2` (v1.2, Android 8+). Version 1.1 requests a fresh live page on launch and after at least one minute in the background, preserving the current tab. It falls back to its bundled copy when the site cannot load. Install this APK over 1.0 once to receive the native refresh fix; it uses the same signing key and a higher version code. APK files are excluded from service-worker caching. Publishing the website requires committing and pushing the `downloads` folder along with the updated HTML, scripts, and styles. The Android source and rebuild instructions are in `android/`; private signing keys are stored outside the repository.
 
 ## Automatic updates and iPhone installation
 
@@ -59,13 +59,18 @@ HTML now revalidates online first, with a four-second timeout and the cached app
 Cache regression checks (Node 18+):
 
 ```sh
+node tests/status-regression.mjs
 node tests/schedule-regression.mjs
 node tests/sw-regression.mjs
 node tests/registration-regression.mjs
 ```
 
-All 18 cache checks passed, alongside the complete 430-row timetable audit and 4,024 departure/countdown regression boundaries. A browser test also verified migration from the prior cache-first worker, preservation of query/hash, and a subsequent update retaining the selected Masdar → Main route. Android 1.1 includes this updated site as its offline copy. Future website updates appear online; refreshing the bundled offline copy requires a new APK.
+All 18 cache checks passed, alongside the complete 430-row timetable audit and 4,024 departure/countdown regression boundaries. A browser test also verified migration from the prior cache-first worker, preservation of query/hash, and a subsequent update retaining the selected Masdar → Main route. Android 1.2 includes this updated site as its offline copy. Future website updates appear online; refreshing the bundled offline copy requires a new APK.
 
 ## Fifth-update release
 
-Compared with update four, Main → SAN at 16:25 and 17:45 now run Monday–Thursday, and SAN → Masdar adds 16:20 Monday–Thursday. All other listed departures remain as supplied. The fifth PDF prints no new effective date; the original Fall service start remains 7 September, and the announcement labels 13 September as the date this revision was added to the app. Android 1.1 bundles this fifth schedule and includes the native launch/resume refresh fix.
+Compared with update four, Main → SAN at 16:25 and 17:45 now run Monday–Thursday, and SAN → Masdar adds 16:20 Monday–Thursday. All other listed departures remain as supplied. The fifth PDF prints no new effective date; the original Fall service start remains 7 September, and the announcement labels 13 September as the date this revision was added to the app. Android 1.2 bundles this fifth schedule and includes the native launch/resume refresh fix.
+
+## Schedule status fix (14 September 2026)
+
+Badges describe today in UAE time: upcoming applicable departures are green Scheduled, passed applicable departures are red Departed, and services that do not run today are neutral Not today. Monday no longer labels Tuesday/Thursday-only rows as upcoming. The exact departure instant stays Scheduled, matching the countdown, and changes to Departed immediately afterwards. Android 1.2 includes this fix in its offline copy. The focused regression suite covers 125 time/day cases and seven repeated badge transitions.

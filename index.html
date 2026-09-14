@@ -11,16 +11,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="KU Bus">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="manifest.webmanifest?v=20260913-fifth-1">
+    <link rel="manifest" href="manifest.webmanifest?v=20260914-status-1">
     <link rel="icon" type="image/png" sizes="1254x1254" href="assets/ku-bus-logo.png">
     <link rel="apple-touch-icon" href="assets/ku-bus-logo.png">
     <link rel="preload" href="assets/fonts/etihad-altis-book.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="assets/fonts/etihad-altis-bold.woff" as="font" type="font/woff" crossorigin>
-    <link rel="stylesheet" href="fonts.css?v=20260913-fifth-1">
-    <link rel="stylesheet" href="mobile.css?v=20260913-fifth-1">
-    <link rel="stylesheet" href="airline.css?v=20260913-fifth-1">
-    <script defer src="script.js?v=20260913-fifth-1"></script>
-    <script defer src="navigation.js?v=20260913-fifth-1"></script>
+    <link rel="stylesheet" href="fonts.css?v=20260914-status-1">
+    <link rel="stylesheet" href="mobile.css?v=20260914-status-1">
+    <link rel="stylesheet" href="airline.css?v=20260914-status-1">
+    <script defer src="script.js?v=20260914-status-1"></script>
+    <script defer src="navigation.js?v=20260914-status-1"></script>
   </head>
   <body data-route="san" data-pickup="main" data-view="home">
     <svg class="logo-definitions" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
@@ -145,6 +145,7 @@
               <button type="button" data-mobile-service="weekday" aria-pressed="true">Mon–Thu</button>
               <button type="button" data-mobile-service="friday" aria-pressed="false">Friday</button>
             </div>
+            <p class="schedule-status-note">Statuses follow today's timetable in UAE time. “Not today” trips run on their listed days.</p>
             <div class="schedule-list" id="schedule-list"></div>
           </section>
           <p class="view-footnote">Fall 2026 · Fifth update. All times are local to the UAE. Choose KURH or Lulu separately to see departures for that residence.</p>
@@ -200,10 +201,10 @@
           <div class="download-layout">
             <article class="download-card" aria-labelledby="android-app-title">
               <div class="download-app-icon" aria-hidden="true"><svg class="ku-bus-mark" viewBox="0 0 1000 940" focusable="false"><use href="#ku-shuttle-mark" width="1000" height="940"/></svg></div>
-              <p class="download-platform">Android app · Version 1.1</p>
+              <p class="download-platform">Android app · Version 1.2</p>
               <h2 id="android-app-title">Your next ride.<br>One tap away.</h2>
               <p class="download-description">The fifth Fall 2026 schedule, departure countdowns and announcements, with an updated offline timetable.</p>
-              <a class="apk-download-link" href="downloads/ku-bus.apk?v=1.1" download="ku-bus.apk" type="application/vnd.android.package-archive">
+              <a class="apk-download-link" href="downloads/ku-bus.apk?v=1.2" download="ku-bus.apk" type="application/vnd.android.package-archive">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg>
                 Download APK
               </a>

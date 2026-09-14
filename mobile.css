@@ -184,7 +184,9 @@ body[data-view="download"] .bottom-nav { --nav-index: 3; }
 .schedule-pill, .status-pill { display: inline-block; padding: 4px 6px; border-radius: 5px; font-size: 12px; line-height: 1.2; white-space: nowrap; }
 .schedule-pill { color: var(--arrival-ink); background: var(--arrival-soft); }
 .status-pill.is-scheduled { color: #326744; background: #eaf3ec; }
-.status-pill.is-departed { color: #667080; background: #e9edf2; }
+.status-pill.is-departed { color: #b42335; background: #fdebed; }
+.status-pill.is-not-today { color: #606978; background: #e9edf2; }
+.schedule-status-note { margin: 0 16px 14px; color: var(--muted); font-size: 12px; line-height: 1.5; }
 body[data-mobile-service="weekday"] .schedule-row[data-day-tag="Friday"], body[data-mobile-service="friday"] .schedule-row:not([data-day-tag="Friday"]) { display: none; }
 .view-footnote { margin: 18px 4px 0; color: var(--muted); font-size: 12px; line-height: 1.4; }
 .announcement-empty { max-width: 660px; margin: 34px auto 0; padding: 42px 22px; border: 1px solid var(--border); border-radius: 16px; background: var(--glass); text-align: center; box-shadow: 0 16px 36px #28325007; }

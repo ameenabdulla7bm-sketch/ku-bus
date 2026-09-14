@@ -167,7 +167,7 @@ for (const [route, now, expected] of [
 
 assert.equal(app.getNextDeparture([], new Date('2026-09-14T06:00:00+04:00')), null);
 assert.equal(app.getRouteStatus('4:25 PM', 'Mon-Thu', new Date('2026-09-15T16:25:01+04:00')), 'departed');
-assert.equal(app.getRouteStatus('12:40 PM', 'Wednesday', new Date('2026-09-17T12:41:00+04:00')), 'scheduled');
+assert.equal(app.getRouteStatus('12:40 PM', 'Wednesday', new Date('2026-09-17T12:41:00+04:00')), 'not-today');
 assert.deepEqual(plain(app.getCountdownParts(25 * 60 * 60 * 1000 + 2 * 60 * 1000)), { days: 1, hours: 1, minutes: 2, seconds: 0 });
 
 console.log(`PASS: ${checkedRows} independently audited rows across 18 routes, ${checkedRestrictions} restrictions, ${dailyMatrices} daily timetables, and ${boundaryChecks} next-departure/countdown boundary checks.`);

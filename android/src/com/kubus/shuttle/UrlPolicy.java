@@ -20,7 +20,7 @@ final class UrlPolicy {
             }
         }
         // A new URL also bypasses exact entries in legacy service-worker caches.
-        return LIVE + "index.html?app=android&build=2&refresh=" + requestId + "#" + section;
+        return LIVE + "index.html?app=android&build=3&refresh=" + requestId + "#" + section;
     }
 
     private static URI parse(String url) {

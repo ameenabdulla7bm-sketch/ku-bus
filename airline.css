@@ -106,7 +106,6 @@ body { background: #ece8db; -webkit-font-smoothing: antialiased; font-synthesis:
 .mobile-service-switch button { border-radius: 999px; font-size: 13px; }
 .mobile-service-switch button[aria-pressed="true"] { box-shadow: none; }
 .schedule-time { font-size: 16px; }
-.status-pill.is-departed { color: #606978; }
 .schedule-table-head { background: #f5f3f4; }
 .notice-badge { border-radius: 999px; }
 .announcement-header h2 { font-size: 25px; line-height: 1.25; }

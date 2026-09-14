@@ -548,17 +548,17 @@ function getRouteStatus(timeText, dayTag, now = new Date()) {
   const departure = parseDepartureTime(timeText);
 
   if (!departure) {
-    return "scheduled";
+    return "not-today";
   }
 
   const uaeNow = getUaeNowParts(now);
 
   if (uaeNow.nowUaeMs < scheduleEffectiveUaeMs) {
-    return "scheduled";
+    return "not-today";
   }
 
   if (!getDaysForTag(dayTag).includes(uaeNow.day)) {
-    return "scheduled";
+    return "not-today";
   }
 
   const departureMs = Date.UTC(
@@ -569,7 +569,7 @@ function getRouteStatus(timeText, dayTag, now = new Date()) {
     departure.minutes
   );
 
-  return departureMs <= uaeNow.nowUaeMs ? "departed" : "scheduled";
+  return departureMs < uaeNow.nowUaeMs ? "departed" : "scheduled";
 }
 
 function getCountdownParts(ms) {
@@ -712,7 +712,7 @@ function renderSchedule(groups) {
         item.dataset.restricted = String(isRestricted);
         item.dataset.specialPickup = String(isRestricted);
         item.innerHTML = `
-          <span class="schedule-time" data-label="Scheduled">${time}</span>
+          <span class="schedule-time" data-label="Departure">${time}</span>
           <span class="schedule-route" data-label="Route">
             <strong>${name}</strong>
             <span class="schedule-note">${detail}</span>
@@ -735,19 +735,23 @@ function renderSchedule(groups) {
 }
 
 function updateScheduleStatuses() {
+  const statuses = {
+    scheduled: { label: "Scheduled", description: "Bus scheduled today" },
+    departed: { label: "Departed", description: "Today's scheduled departure time has passed" },
+    "not-today": { label: "Not today", description: "Bus does not run today; see the listed service days" }
+  };
+  const now = new Date();
   document.querySelectorAll(".schedule-row").forEach((scheduleRow) => {
-    const status = getRouteStatus(scheduleRow.dataset.time, scheduleRow.dataset.dayTag);
+    const status = getRouteStatus(scheduleRow.dataset.time, scheduleRow.dataset.dayTag, now);
     const statusPill = scheduleRow.querySelector(".status-pill");
 
     if (!statusPill) {
       return;
     }
 
-    const isDeparted = status === "departed";
-    statusPill.textContent = isDeparted ? "Departed" : "Scheduled";
-    statusPill.classList.toggle("is-departed", isDeparted);
-    statusPill.classList.toggle("is-scheduled", !isDeparted);
-    statusPill.setAttribute("aria-label", isDeparted ? "Bus already departed" : "Bus scheduled");
+    statusPill.textContent = statuses[status].label;
+    Object.keys(statuses).forEach((name) => statusPill.classList.toggle(`is-${name}`, status === name));
+    statusPill.setAttribute("aria-label", statuses[status].description);
   });
 }
 
