@@ -26,7 +26,8 @@ const scheduleDays = {
   "Friday": [5],
   "Mon/Wed": [1, 3],
   "Tue/Thu": [2, 4],
-  "Wednesday": [3]
+  "Wednesday": [3],
+  "Tuesday": [2]
 };
 
 const studentResidenceToMainTimes = [
@@ -133,6 +134,10 @@ function residenceToSanRows(originId, originPlace) {
     return [row("8:00 AM", "KURH (ADNOC Schools) -> SAN Campus/Arzanah", "KURH only pickup"), ...sharedRows];
   }
 
+  if (originId === "lulu") {
+    return [row("8:00 AM", routeName, "Umm Lulu only pickup", "Tuesday"), ...sharedRows];
+  }
+
   return sharedRows;
 }
 
@@ -236,7 +241,7 @@ const sanToMainRows = [
 ];
 
 const masdarToMainRows = rows(
-  ["7:45 AM", "8:30 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:15 PM", "2:00 PM", "3:30 PM", "4:00 PM", "5:00 PM", "6:30 PM"],
+  ["7:45 AM", "8:30 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:15 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:30 PM"],
   "Masdar Residence -> Main Campus",
   "Masdar Residences / Main Campus"
 );
@@ -248,13 +253,13 @@ const mainToMasdarRows = rows(
 );
 
 const masdarToSanRows = rows(
-  ["7:00 AM", "8:00 AM", "9:30 AM", "11:00 AM", "12:30 PM", "2:00 PM", "3:30 PM", "4:15 PM", "5:00 PM", "6:45 PM"],
+  ["7:00 AM", "8:00 AM", "9:30 AM", "10:00 AM", "11:00 AM", "12:30 PM", "2:00 PM", "3:30 PM", "4:15 PM", "5:00 PM", "6:45 PM"],
   "Masdar Residence -> SAN Campus",
   "Masdar Residences / SAN Campus"
 );
 
 const sanToMasdarRows = [
-  ...rows(["11:00 AM", "12:25 PM", "1:30 PM", "3:00 PM", "4:20 PM", "4:40 PM", "6:10 PM", "6:40 PM", "7:35 PM", "8:20 PM", "9:00 PM"], "SAN Campus -> Masdar Residence", "Masdar Residences / SAN Campus")
+  ...rows(["11:00 AM", "11:40 AM", "12:25 PM", "1:30 PM", "3:00 PM", "4:20 PM", "4:40 PM", "6:10 PM", "6:40 PM", "7:35 PM", "8:20 PM", "9:00 PM"], "SAN Campus -> Masdar Residence", "Masdar Residences / SAN Campus")
 ];
 
 const fridayToMainTimes = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "1:15 PM", "2:00 PM"];

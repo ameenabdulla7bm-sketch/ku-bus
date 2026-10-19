@@ -15,12 +15,12 @@ final class UrlPolicy {
         if (current != null && (isLive(currentUrl) || assetPath(currentUrl) != null)) {
             String fragment = current.getFragment();
             if ("home".equals(fragment) || "schedule".equals(fragment)
-                    || "announcements".equals(fragment) || "download".equals(fragment)) {
+                    || "san-local".equals(fragment) || "announcements".equals(fragment) || "download".equals(fragment)) {
                 section = fragment;
             }
         }
         // A new URL also bypasses exact entries in legacy service-worker caches.
-        return LIVE + "index.html?app=android&build=4&refresh=" + requestId + "#" + section;
+        return LIVE + "index.html?app=android&build=6&refresh=" + requestId + "#" + section;
     }
 
     private static URI parse(String url) {

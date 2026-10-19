@@ -1,3 +1,9 @@
+# Seventh update
+
+Compared all seven pages against update six. Only changes: Tuesday-only 08:00 Umm Lulu → SAN; Mon–Thu 10:00 Masdar → SAN and 11:40 SAN → Masdar added; Masdar → Main 15:30 moved to 15:00. Total 433 rows and 12 restriction notes. Original PDF bundled unchanged as documents/fall-2026-shuttle-schedule-seventh-update.pdf. No new effective date is printed. Applied as the current timetable at user request on 19 October 2026. Friday and SAN local shuttle schedules are unchanged.
+
+## Historical sixth-update interpretation
+
 # Sixth-update timetable notes
 
 Source: the supplied `6th Update_Daily Shuttle Service Bus Schedule_ Fall 2026.pdf`, seven pages, bundled unchanged at `documents/fall-2026-shuttle-schedule-sixth-update.pdf`. Its accompanying announcement sets the effective date to Tuesday, 15 September 2026. The original Fall service start remains 7 September 2026 for unchanged services.

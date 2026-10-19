@@ -8,13 +8,18 @@
 
     function viewFromHash() {
       const hash = window.location.hash.slice(1);
-      if (hash === "trip-panel") return "schedule";
+      if (hash === "trip-panel" || hash === "san-local") return "schedule";
       return viewNames.has(hash) ? hash : "home";
     }
 
     function showView(viewName, isUserNavigation = false) {
       document.body.dataset.view = viewName;
       let visiblePanel;
+      const section = window.location.hash === "#san-local" ? "local" : "campus";
+      document.querySelectorAll("[data-schedule-panel]").forEach(panel => {
+        panel.hidden = panel.dataset.schedulePanel !== section;
+      });
+      document.querySelectorAll("[data-campus-route-link]").forEach(link => { link.hidden = section === "local"; });
 
       for (const panel of panels) {
         const isVisible = panel.dataset.viewPanel === viewName;
@@ -23,7 +28,7 @@
       }
 
       for (const link of links) {
-        if (link.dataset.viewLink === viewName) {
+        if (link.dataset.viewLink === viewName && (!link.dataset.scheduleLink || link.dataset.scheduleLink === section)) {
           link.setAttribute("aria-current", "page");
         } else {
           link.removeAttribute("aria-current");
@@ -46,7 +51,7 @@
         if (!viewNames.has(viewName)) return;
 
         event.preventDefault();
-        const nextHash = `#${viewName}`;
+        const nextHash = link.dataset.scheduleLink === "local" ? "#san-local" : `#${viewName}`;
 
         if (window.location.hash === nextHash) {
           showView(viewName, true);

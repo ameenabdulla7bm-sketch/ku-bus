@@ -46,6 +46,10 @@ public class UrlPolicyTest {
         check(!UrlPolicy.freshPageUrl(null, 123).equals(UrlPolicy.freshPageUrl(null, 124)), "launches bypass exact cached URL");
         check(UrlPolicy.freshPageUrl(UrlPolicy.LIVE + "index.html?old=1#download", 1).endsWith("#download"), "keep Download on refresh");
         check(UrlPolicy.freshPageUrl(UrlPolicy.LOCAL + "index.html#schedule", 1).endsWith("#schedule"), "keep offline Schedule when retrying");
+        check(UrlPolicy.freshPageUrl(UrlPolicy.LIVE + "index.html?old=1#san-local", 1).endsWith("#san-local"), "keep SAN local schedule on online refresh");
+        check(UrlPolicy.freshPageUrl(UrlPolicy.LOCAL + "index.html#san-local", 1).endsWith("#san-local"), "keep SAN local schedule when retrying offline");
+        check(UrlPolicy.freshPageUrl("https://evil.test/#san-local", 1).endsWith("#home"), "external page cannot select SAN local schedule");
+        check(UrlPolicy.freshPageUrl(null, 123).contains("&build=6&"), "refresh identifies Android release 1.5");
         check(UrlPolicy.freshPageUrl("https://evil.test/#download", 1).endsWith("#home"), "external page cannot choose launch state");
         check(UrlPolicy.freshPageUrl(UrlPolicy.LIVE + "#unexpected", 1).endsWith("#home"), "unknown fragment normalized");
         System.out.println("Passed " + cases + " URL policy checks.");

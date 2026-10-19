@@ -1,3 +1,7 @@
+## Current release · 19 October 2026
+
+Seventh timetable; Android 1.5 (versionCode 6). Added Tuesday-only 08:00 Lulu → SAN, Mon–Thu 10:00 Masdar → SAN and 11:40 SAN → Masdar; moved Masdar → Main 15:30 to 15:00. Other schedules, including SAN local shuttle, are unchanged. The PDF gives no new effective date. Earlier release notes below are historical.
+
 # KU Shuttle
 
 A responsive Khalifa University shuttle app inspired by the supplied airline-app reference, using the supplied sixth-update Fall 2026 timetable.

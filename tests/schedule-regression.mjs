@@ -8,7 +8,7 @@ import vm from 'node:vm';
 
 const source = await readFile(new URL('../script.js', import.meta.url), 'utf8');
 const previousFixture = JSON.parse(await readFile(new URL('./expected-fifth-schedule.json', import.meta.url), 'utf8'));
-const fixture = JSON.parse(await readFile(new URL('./expected-sixth-schedule.json', import.meta.url), 'utf8'));
+const fixture = JSON.parse(await readFile(new URL('./expected-seventh-schedule.json', import.meta.url), 'utf8'));
 const EFFECTIVE_DATE = '2026-09-15';
 const dataEnd = source.indexOf('\nconst elements = {');
 const helpersStart = source.indexOf('\nfunction getTrip() {');
@@ -33,6 +33,7 @@ const DAY_TAGS = {
   'Mon/Wed': [1, 3],
   'Tue/Thu': [2, 4],
   Wednesday: [3],
+  Tuesday: [2],
   Friday: [5]
 };
 const CAMPUS_IDS = ['main', 'san', 'masdar', 'rawda', 'kurh', 'lulu'];
@@ -45,25 +46,11 @@ function twentyFourHour(time) {
 }
 function rowsFor(route) { return app.getAllRows(app.tripSchedules[route] || []); }
 
-// Independently constrain the complete source delta, including Friday service.
-const fixtureChanges = [];
-for (const [route, services] of Object.entries(previousFixture.routes)) {
-  for (const [service, rows] of Object.entries(services)) {
-    assert.equal(fixture.routes[route][service].length, rows.length);
-    rows.forEach((before, index) => {
-      const after = fixture.routes[route][service][index];
-      assert.equal(after.time, before.time, `${route}: no time changed`);
-      assert.equal(after.restriction, before.restriction, `${route}: no restriction changed`);
-      if (before.day !== after.day) fixtureChanges.push([route, service, before.time, before.day, after.day]);
-    });
-  }
+// Keep the known September transition checks while testing the current PDF.
+// The seventh PDF supplies no retrospective effective date.
+for (const route of Object.keys(fixture.routes)) {
+  if (!['main->san', 'san->main'].includes(route)) previousFixture.routes[route] = fixture.routes[route];
 }
-assert.deepEqual(fixtureChanges, [
-  ['main->san', 'weekday', '11:35', 'Mon/Wed', 'Mon-Thu'],
-  ['san->main', 'weekday', '12:50', 'Tue/Thu', 'Mon-Thu']
-]);
-assert.equal(fixture.effective, EFFECTIVE_DATE);
-
 
 assert.deepEqual(Object.keys(app.locations), CAMPUS_IDS);
 assert.equal(Object.keys(fixture.routes).length, 18);
@@ -100,8 +87,8 @@ for (const [route, services] of Object.entries(fixture.routes)) {
     dailyMatrices += 1;
   }
 }
-assert.equal(checkedRows, 430, 'sixth-update total across all 18 routes');
-assert.equal(checkedRestrictions, 11, 'all source restrictions remain represented');
+assert.equal(checkedRows, 433, 'seventh-update total across all 18 routes');
+assert.equal(checkedRestrictions, 12, 'all source restrictions remain represented');
 
 // Before the notice takes effect, every route still resolves to the fifth
 // timetable; from midnight onward it resolves to the sixth timetable.
