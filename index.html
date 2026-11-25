@@ -63,6 +63,13 @@
         body[data-view="home"] .stop-detail { display: none; }
         body[data-view="home"] .mobile-location-buttons button[aria-pressed="true"]::after { top: 3px; right: 3px; width: 10px; height: 10px; font-size: 7px; }
       }
+      /* UAE fabric backdrop, shaded to keep every route and control readable. */
+      body[data-view] .app-shell,
+      body[data-view="home"] .app-shell {
+        background: linear-gradient(90deg, rgba(6, 10, 9, .60), rgba(6, 10, 9, .77)), url("assets/uae-fabric-background.jpg") center top / cover no-repeat #101412;
+      }
+      .app-shell::before { display: none; }
+      @media (forced-colors: active) { body[data-view] .app-shell { background: Canvas; } }
     </style>
     <script defer src="script.js?v=20261019-seventh-1"></script>
     <script defer src="navigation.js?v=20261019-seventh-1"></script>
