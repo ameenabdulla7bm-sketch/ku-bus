@@ -74,6 +74,26 @@
       .brand { color: #f7f8f5; }
       .ticket-route, .view-heading h1 { color: #b4f1c9; }
       .ticket-kicker, .eyebrow { color: #a5d9b8; }
+      /* Coordinate route controls and navigation with the UAE palette. */
+      #mobile-pickup button { --stop-bright: #8cdeb0; }
+      #mobile-destination button { --stop-bright: #f16b60; }
+      #mobile-pickup button:not([aria-pressed="true"]):not(:disabled),
+      #mobile-destination button:not([aria-pressed="true"]):not(:disabled) { color: #ecf1ed; background: #ffffff09; }
+      #mobile-pickup button[aria-pressed="true"] { color: #102018; background: #8cdeb0; border-color: #8cdeb0; }
+      #mobile-destination button[aria-pressed="true"] { color: #20100f; background: #f16b60; border-color: #f16b60; }
+      .schedule-link, .mobile-swap { color: #a5e9bd; }
+      .bottom-nav { background: #161f1c; border-color: #ffffff35; }
+      .bottom-nav::before { background: #8cdeb0; }
+      .bottom-nav a { color: #c9d4cc; }
+      .bottom-nav a[aria-current="page"] { color: #102018; }
+      @media (forced-colors: active) {
+        #mobile-pickup button:not([aria-pressed="true"]):not(:disabled), #mobile-destination button:not([aria-pressed="true"]):not(:disabled) { color: CanvasText; background: Canvas; border-color: CanvasText; }
+        #mobile-pickup button[aria-pressed="true"], #mobile-destination button[aria-pressed="true"] { color: HighlightText; background: Highlight; border-color: Highlight; }
+        .bottom-nav { background: Canvas; border-color: CanvasText; }
+        .bottom-nav a { color: CanvasText; }
+        .bottom-nav::before { background: Highlight; }
+        .bottom-nav a[aria-current="page"] { color: HighlightText; }
+      }
     </style>
     <script defer src="script.js?v=20261019-seventh-1"></script>
     <script defer src="navigation.js?v=20261019-seventh-1"></script>
