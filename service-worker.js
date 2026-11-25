@@ -1,4 +1,4 @@
-const CACHE_NAME = "ku-shuttle-pwa-v2-20261125-mobile-bus-2";
+const CACHE_NAME = "ku-shuttle-pwa-v2-20261125-mobile-bus-large-3";
 const APP_SHELL = new URL("./index.html", self.registration.scope).href;
 const NETWORK_TIMEOUT_MS = 4000;
 

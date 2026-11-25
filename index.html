@@ -106,6 +106,13 @@
         body[data-view="home"] .mobile-location-field:last-child { margin-top: 7px; }
         body[data-view="home"] .bottom-nav { margin-bottom: max(8px, env(safe-area-inset-bottom)); }
       }
+      /* Enlarge the phone artwork without adding height to the page. */
+      @media (max-width: 600px) {
+        body[data-view="home"] .departure-overview { position: relative; z-index: 1; }
+        body[data-view="home"] .hero-visual { z-index: 0; }
+        body[data-view="home"] .hero-bus { overflow: visible; }
+        body[data-view="home"] .hero-bus > img { top: auto; bottom: 0; height: clamp(180px, 30svh, 230px); transform: translateX(-68%); }
+      }
     </style>
     <script defer src="script.js?v=20261019-seventh-1"></script>
     <script defer src="navigation.js?v=20261019-seventh-1"></script>
