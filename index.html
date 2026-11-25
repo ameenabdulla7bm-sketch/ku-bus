@@ -44,6 +44,12 @@
         .app-shell::before { width: min(54vw, 220px); height: min(41vw, 170px); opacity: .34; }
       }
       @media (forced-colors: active) { .app-shell::before { display: none; } }
+      .today-shuttle-notice[hidden] { display: none !important; }
+      .today-shuttle-notice { margin: 0 0 14px; padding: 12px 14px; border: 1px solid #ffffff2b; border-left: 3px solid #68c99a; border-radius: 12px; color: #faf7f5; background: #ffffff0b; }
+      .today-shuttle-notice h2 { margin: 0 0 5px; color: #e2f6e8; font-size: 11px; font-weight: 600; letter-spacing: .35px; line-height: 1.35; }
+      .today-shuttle-notice p { margin: 3px 0 0; color: #eee9eb; font-size: 11px; line-height: 1.45; }
+      .today-shuttle-notice strong { color: #fff; font-weight: 700; }
+      @media (max-width: 980px) { .today-shuttle-notice { margin-bottom: 10px; padding: 10px 12px; } }
     </style>
     <script defer src="script.js?v=20261019-seventh-1"></script>
     <script defer src="navigation.js?v=20261019-seventh-1"></script>
@@ -129,6 +135,11 @@
             </div>
 
             <section class="upcoming-section" aria-labelledby="upcoming-title">
+              <aside class="today-shuttle-notice" id="today-shuttle-notice" hidden aria-labelledby="today-shuttle-title">
+                <h2 id="today-shuttle-title">TODAY ONLY · EXTRA DEPARTURES FROM MAIN CAMPUS</h2>
+                <p><strong>8:30 PM &amp; 8:45 PM:</strong> Additional buses to KU Student Residences and SAN Campus after the celebration.</p>
+                <p><strong>Al Bahar Parking:</strong> Extra departures at the same times. Regular daily shuttle and parking service run as scheduled.</p>
+              </aside>
               <div class="section-heading">
                 <h2 id="upcoming-title">Choose your ride</h2>
                 <div class="ride-actions">
@@ -344,5 +355,23 @@
         <a href="#download" data-view-link="download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg><span>Download</span></a>
       </nav>
     </div>
+    <script>
+      (() => {
+        const notice = document.getElementById('today-shuttle-notice');
+        const updateNotice = () => {
+          let show = false;
+          try {
+            const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date());
+            const date = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+            show = date.year === '2026' && date.month === '11' && date.day === '25';
+          } catch (_) { /* Keep the time-sensitive notice hidden if the date is unavailable. */ }
+          notice.hidden = !show;
+        };
+        updateNotice();
+        document.addEventListener('visibilitychange', updateNotice);
+        window.addEventListener('focus', updateNotice);
+        window.setInterval(updateNotice, 30000);
+      })();
+    </script>
   </body>
 </html>
