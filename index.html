@@ -45,11 +45,16 @@
       }
       @media (forced-colors: active) { .app-shell::before { display: none; } }
       .today-shuttle-notice[hidden] { display: none !important; }
-      .today-shuttle-notice { margin: 0 0 14px; padding: 12px 14px; border: 1px solid #ffffff2b; border-left: 3px solid #68c99a; border-radius: 12px; color: #faf7f5; background: #ffffff0b; }
-      .today-shuttle-notice h2 { margin: 0 0 5px; color: #e2f6e8; font-size: 11px; font-weight: 600; letter-spacing: .35px; line-height: 1.35; }
-      .today-shuttle-notice p { margin: 3px 0 0; color: #eee9eb; font-size: 11px; line-height: 1.45; }
-      .today-shuttle-notice strong { color: #fff; font-weight: 700; }
-      @media (max-width: 980px) { .today-shuttle-notice { margin-bottom: 10px; padding: 10px 12px; } }
+      .today-shuttle-notice { width: fit-content; max-width: min(100%, 490px); border: 1px solid #ffffff30; border-radius: 12px; color: #f8f5f3; background: #ffffff0a; }
+      .today-shuttle-notice summary { display: flex; align-items: center; gap: 8px; padding: 9px 12px; color: #e4f7eb; font-size: 11px; font-weight: 600; line-height: 1.35; cursor: pointer; list-style: none; }
+      .today-shuttle-notice summary::-webkit-details-marker { display: none; }
+      .today-shuttle-notice summary:focus-visible { outline: 2px solid #a8edc5; outline-offset: 2px; border-radius: 10px; }
+      .today-shuttle-notice summary::before { content: ""; flex: 0 0 6px; width: 6px; height: 6px; border-radius: 50%; background: #68c99a; }
+      .today-shuttle-notice summary::after { content: "+"; margin-left: auto; color: #c3e7d0; font-size: 15px; }
+      .today-shuttle-notice[open] summary::after { content: "−"; }
+      .today-shuttle-notice p { margin: 0; padding: 0 12px 10px 26px; color: #eee9eb; font-size: 11px; line-height: 1.45; }
+      .today-shuttle-notice strong { color: #fff; }
+      @media (max-width: 980px) and (max-height: 620px) { .ticket-route-copy:has(.today-shuttle-notice:not([hidden])) { display: grid; } }
     </style>
     <script defer src="script.js?v=20261019-seventh-1"></script>
     <script defer src="navigation.js?v=20261019-seventh-1"></script>
@@ -100,6 +105,10 @@
                     <p class="ticket-kicker">Campus shuttle</p>
                     <h1 class="ticket-route" id="ticket-route" data-view-heading tabindex="-1">MAIN → SAN</h1>
                     <p id="desktop-route-caption" class="desktop-route-caption">Main Campus to SAN Campus</p>
+                    <details class="today-shuttle-notice" id="today-shuttle-notice" hidden>
+                      <summary>Today · Extra buses from Main: 8:30 &amp; 8:45 PM</summary>
+                      <p>Additional buses to <strong>KU Student Residences and SAN Campus</strong> after the celebration. Al Bahar Parking has extra departures at the same times. Regular services run as scheduled.</p>
+                    </details>
                   </div>
                 </div>
                 <div class="ticket-departure" id="next-card">
@@ -135,11 +144,6 @@
             </div>
 
             <section class="upcoming-section" aria-labelledby="upcoming-title">
-              <aside class="today-shuttle-notice" id="today-shuttle-notice" hidden aria-labelledby="today-shuttle-title">
-                <h2 id="today-shuttle-title">TODAY ONLY · EXTRA DEPARTURES FROM MAIN CAMPUS</h2>
-                <p><strong>8:30 PM &amp; 8:45 PM:</strong> Additional buses to KU Student Residences and SAN Campus after the celebration.</p>
-                <p><strong>Al Bahar Parking:</strong> Extra departures at the same times. Regular daily shuttle and parking service run as scheduled.</p>
-              </aside>
               <div class="section-heading">
                 <h2 id="upcoming-title">Choose your ride</h2>
                 <div class="ride-actions">
